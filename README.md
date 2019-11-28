@@ -16,4 +16,4 @@ If you use conda, you can install the necessary packages doing the following ste
 
 You can build the html pages by simply running while you are in the `doc` folder (ensure that you have a subfolder named `build`:
 
-    `sphinx-build -b html source build`
+    sphinx-build -b html source build
