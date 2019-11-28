@@ -8,6 +8,7 @@ To write the documentation, use an editor of your choice and add your formulas i
 
 Compiling is done by sphinx, therefore you need a python environment.
 If you use conda, you can install the necessary packages doing the following steps:
+
      1. Download the [environment file](https://github.com/open-modex/mathematical-documentation/blob/master/mathdoc.yml).
      2. Launch a new command prompt (Windows: Win+R, type "cmd", Enter)
      3. Install it via conda by `conda env create -f mathdoc.yml`.
