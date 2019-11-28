@@ -21,6 +21,7 @@ project = 'mathdoc'
 copyright = '2019, open_MODEX'
 author = 'open_MODEX'
 
+master_doc = 'index'
 
 # -- General configuration ---------------------------------------------------
 
