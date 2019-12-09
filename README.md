@@ -14,6 +14,6 @@ If you use conda, you can install the necessary packages doing the following ste
 3. Install it via conda by `conda env create -f mathdoc.yml`.
 4. Each time you open a new terminal for compiling, you can activate the environment by `conda activate mathdoc`.
 
-You can build the html pages by simply running while you are in the `doc` folder (ensure that you have a subfolder named `build`:
+You can build the html pages by simply running while you are in the `doc` folder (ensure that you have a subfolder in `doc` named `build` and a subfolder named `_static` in `doc/source`):
 
     sphinx-build -b html source build
