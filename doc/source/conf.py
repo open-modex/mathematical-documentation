@@ -39,6 +39,10 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+#Necessary for some latex preamble things:
+latex_elements = {
+    'passoptionstopackages': r'\PassOptionsToPackage{svgnames}{xcolor}',
+}
 
 # -- Options for HTML output -------------------------------------------------
 
