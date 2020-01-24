@@ -8,7 +8,8 @@ Objective function
 
 .. math::
 
-    \pi = \pi_{\text{inv}} + \pi_{\text{fix}} + \pi_{\text{var}} + \pi_{\text{fuel}} + \pi_{\text{env}}
+	\pi^{\text{objective}} = C_{\text{real}}(\pi^{inv,capa,g},\pi^{omf,capa,g},\pi^{omv,gen,g})+C_{\text{penalty}}(\varepsilon^{\text{deviation}})
+
 
 Constraints
 ***********
