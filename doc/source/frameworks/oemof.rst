@@ -23,9 +23,5 @@ The following terms representing energy system relevant concepts found in the mo
 
     & + \sum_{r\in R, g\in G} ( v^{inv, capa}_{r, g} \cdot ( \pi^{inv, capa}_{r, g} + \pi^{omf, capa}_{r, g} ) )
 
-    & + gradientcosts
-
-    & + startup + shutdown + activity cost
-
 Constraints
 ***********
