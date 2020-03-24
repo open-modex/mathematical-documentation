@@ -102,10 +102,128 @@ Hydro price profiles
 Constraints
 ***********
 
-QEEQ
-''''
-To be included
+QEEQ: Electricity generation equals demand (MW)
+'''''''''''''''''''''''''''''''''''''''''''''''
 
-QGFEQ
-'''''
-To be included
+.. math::
+
+	&\sum_{a\in A(r)} \sum_{g\in G^{elec}} {v^{gen}_{y,a,g,t}}  + \sum_{r\in R} {v^{trans}_{y,r,r',t}} (1-{\gamma^{trans}_{r,r'}})
+
+	& - \sum_{a\in A(r)} \sum_{g\in G^{storage}} {\color{red}{{VESTOLOADT}}_{y,a,g,t}} - \sum_{a\in A(r)} \sum_{g\in G^{storage}} {\color{red}{{VESTOLOADTS}}_{y,a,g,t}}
+	
+	&= {\color{red}{{IX3FX\_T}}_{y,r,t}} +\sum_{r\in R} {v^{trans}_{y,r,r',t}}
+	
+	&+ \frac{\sum_{\color{red}{DEUSER}}\frac{{{\color{red}{DE}}_{y,r,\color{red}{DEUSER}}} \cdot {\epsilon^{gen}_{r,\color{red}{DEUSER},t}} }{{\color{red}{{IDE\_SUMST}}_{r,DEUSER}}}[\color{red}{IDE\_SUMST}_{r,\color{red}{DEUSER}>0}]}{(1-{\color{red}{{DISLOSS\_E}}_{r}})},
+ 
+	&\forall y \in Y, r\in R, t\in T
+	
+
+Marked in red: things that are not in the terminology. All of these are explained in the following table:
+
+.. list-table::
+   :widths: 20 20 20 40
+   :header-rows: 1
+
+   * - Name 
+     - Domains 
+     - Type
+     - Description
+   * - DEUSER 
+     - DEUSER 
+     - Set 
+     - Electricity demand user groups
+   * - DE 
+     - y,r,DEUSER 
+     - Parameter 
+     - Annual electricity consumption (MWh)
+   * - IDE\_SUMST 
+     - r,DEUSER 
+     - Parameter 
+     - Annual amount of nominal electricity demand (MWh)  
+   * - DISLOSS\_E 
+     - r
+     - Parameter
+     - Loss in electricity distribution (fraction)  
+   * - IX3FX_T 
+     - y,r,t 
+     - Parameter 
+     - Fixed export to third countries for each time segment (MW)
+   * - VESTOLOADT 
+     - y,a,g,t 
+     - Variable (positive)
+     - Intra-seasonal electricity storage loading (MW)  
+   * - VESTOLOADTS 
+     - y,a,g,t 
+     - Variable (positive)
+     - Inter-seasonal electricity storage loading (MW) 
+
+	
+Not relevant for Open_MODEX scenario runs
+***************************************** 
+so far (should be inside the summation of the y) - should we include them? Not in OpenMODEX terminology yet.	
+
+Heat (left side of equation)
+''''''''''''''''''''''''''''
+
+.. math::
+	- \sum_{a\in A(r)} {\sum_{g\in G^{heat}} v^{gen}_{y,a,g,t}} 
+
+
+QGFEQ: Calculate fuel consumption, existing units (MW)
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. math::
+
+	&{v^{fuse}_{y,a,g,t}}  = ( ( \frac{v^{gen}_{y,a,g,t}}{\gamma^{total,gen}_{g}[1$(NOT {\color{red}{GEFFRATE}}_{a,g})+\color{red}{GEFFRATE}_{a,g}]})$[g\in G^{elec}\setminus \color{red}{GSET}]
+	
+	&+ (\frac{{\color{blue}\gamma^{CV}_g}\cdot v^{gen,heat}_{y,a,g,t}}{\gamma^{total,gen}_{g}[1$(NOT \color{red}{GEFFRATE}_{a,g})+\color{red}{GEFFRATE}_{a,g}]})$[g\in G^{heat}] )$[NOT \color{red}{IGBYPASS}_g]
+	
+	& + ( {\color{blue}\gamma^{CB}_g} \frac{(\frac{ \color{red}{GDBYPASSC}_{g} \cdot v^{gen,heat}_{y,a,g,t} + v^{gen}_{y,a,g,t}}{{\color{blue}\gamma^{CB}_g}+\color{red}{GDBYPASSC}_{g}})}{{\gamma^{total,gen}_{g}}[1$(NOT \color{red}{GEFFRATE}_{a,g})+\color{red}{GEFFRATE}_{a,g}]}
+
+	& + {\color{blue}\gamma^{CV}_g}\frac{(\frac{ \color{red}{GDBYPASSC}_{g} \cdot v^{gen,heat}_{y,a,g,t} + v^{gen}_{y,a,g,t}}{{\color{blue}\gamma^{CB}_g}+\color{red}{GDBYPASSC}_{g}})}{{\gamma^{total,gen}_{g}}[1$(NOT \color{red}{GEFFRATE}_{a,g})+\color{red}{GEFFRATE}_{a,g}]} )$(\color{red}{IGBYPASS}_g)
+
+	& \forall y \in Y, r\in R, g\in G, t\in T
+
+
+Marked in red: things that are not in the terminology. All of these are explained in the following table:
+
+.. list-table::
+   :widths: 20 20 20 40
+   :header-rows: 1
+
+   * - Name 
+     - Domains 
+     - Type
+     - Description
+   * - GSET 
+     - g
+     - Set 
+     - Electric heaters, heat pumps,electrolysis plants  
+   * - \gamma^{total,gen}_{g} 
+     - g
+     - Parameter 
+     - Fuel efficiency (GDATA(G,'GDFE'))
+   * - GDBYPASSC 
+     - g 
+     - Parameter 
+     - ramp-down limit (% of capacity/h) (GDATA(G,'GDBYPASSC') )
+   * - GEFFRATE 
+     - a,g 
+     - Parameter 
+     - Fuel efficiency rating (strictly positive, typically close to 1; default/1/, use eps for 0)
+   * - IGBYPASS 
+     - g
+     - Set
+     - Technologies that may apply turbine bypass mode (subject to option bypass) 
+   * - \color{blue}\gamma^{CV} 
+     - g 
+     - Parameter 
+     - Cb-value for CHP (GDATA(G,'GDCB'))
+   * - \color{blue}\gamma^{CV} 
+     - g 
+     - Parameter 
+     - Cv-value for CHP-Ext (GDATA(G,'GDCV'))
+	 
+	 	
+QESTOVOLTS: Inter-seasonal electricty storage dynamic equation (MWh)
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
