@@ -6,7 +6,7 @@
 Welcome to the mathematical documentation of the open_MODEX Frameworks!
 =======================================================================
 
-This documentation includes the mathematical formulations of the frameworks of the open_MODEX project.
+This documentation includes the mathematical formulations of the frameworks of the open_MODEX project as well as the modelling of different technologies
 
 For a basic introduction into the syntax of rst, check out the `sphinx help <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_.
 
@@ -19,6 +19,7 @@ For a basic introduction into the syntax of rst, check out the `sphinx help <htt
    frameworks/genesysmod
    frameworks/oemof
    frameworks/urbs
+   frameworks/technologies
 
 
 * :ref:`search`
