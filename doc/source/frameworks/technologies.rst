@@ -2,6 +2,7 @@ Modelling of technologies
 =========================
 Here the framework's representations of technologies are shown
 
+
 Electricity-only units
 **********************
 
@@ -90,6 +91,17 @@ The related equations for this technology is:
 
 	v^{gen}_{y,a,g,t} \leq \kappa^{capa}_{y,a,g} + v^{capa}_{y,a,g} - v^{gen,heat}_{y,a,g,t} \cdot \gamma^{CV}_g \quad \forall y \in Y, a\in A, g\in G, t\in T
 
+Generic processes
+*****************
+    
+urbs
+''''
+
+.. math::
+	&\epsilon^{\text{in}}_{y,g,d,t}=r^{\text{in}}_{y,g,d}\tau_{y,g,t} \forall y\in Y,\forall g\in G,~d\in D,~t \in T_m
+    &\epsilon^{\text{out}}_{y,g,d,t}=r^{\text{out}}_{y,g,d}\tau_{y,g,t} \forall y\in Y\forall g\in G,~d\in D,~t \in T_m
+    &\tau_{y,g,t}\leq \kappa_{y,g} \forall y\in y\forall g\in G,~d\in D,~t \in T_m
+    
 Storages
 ********
 
@@ -105,3 +117,11 @@ The necessary equation for this technology is:
 	& v^{sto,vol}_{y,a,g,t+1} = v^{sto,vol}_{y,a,g,t}\cdot \gamma^{total,gen}_{g} + v^{sto,load}_{y,a,g,t}\cdot \gamma^{in,gen}_{g} - v^{gen}_{y,a,g,t} \cdot \gamma^{out,gen}_{g}
 
 	& \forall y \in Y, a\in A, g\in G, t\in T
+    
+urbs
+''''
+
+.. math::
+    &\forall y\in Y,~d\in D,~r\in R,~t\in T_m:\\
+    &\epsilon^{\text{con}}_{y,d,r,t}=\epsilon^{\text{con}}_{y,d,r,(t-1)}\cdot (1-d_{y,d,r})^{\Delta t}+e^{\text{in}}_{y,d,r}\cdot \epsilon^{\text{in}}_{y,d,r,t}- \frac{\epsilon^{\text{out}}_{y,d,r,t}}{e^{\text{out}}_{y,d,r}}.
+  

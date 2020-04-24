@@ -15,10 +15,9 @@ The objective function consists of five parts:
 
 .. math::
 
-    \pi = \pi_{\text{inv}} + \pi_{\text{fix}} + \pi_{\text{var}} + \pi_{\text{fuel}} + \pi_{\text{env}}
+    \pi^\text{obj} = \sum_{y\in Y}\ w_y\cdot(\pi_{\text{inv}} + \pi_{\text{fix}} + \pi_{\text{var}} + \pi_{\text{fuel}} + \pi_{\text{env}})
 
-    \pi_{\text{inv}}=\sum_{g \in G_{\text{exp}}}f_g \pi^{\text{inv, capa}}_g \widehat{\kappa}_g
-    f=\frac{(1+i)^n\cdot i}{(1+i)^n-1}
+    \pi_{\text{inv}}=\sum_{g \in G_{\text{exp}}}f_g \pi^{\text{inv, capa}}_g \widehat{\kappa}_g \ \ f=\frac{(1+i)^n\cdot i}{(1+i)^n-1}
 
     \pi_{\text{fix}}=\sum_{g \in G}\pi^{\text{omf,capa}}_g\kappa^{\text{capa}}_g
 
@@ -41,20 +40,20 @@ allowed capacity expansion for each process. The total capacity of a given
 process is simply given by:
 
 .. math::
-   &\forall p \in P:\\
-   &\kappa_{p}=K_p + \widehat{\kappa}_p,
+   &\forall y \in Y, \forall g \in G:\\
+   &\kappa_{y,g}=K_{y,g} + \widehat{\kappa}_{y,g},
 
-where :math:`K_p` is the already installed capacity of process :math:`p`.
+where :math:`K_{y,g}` is the already installed capacity of process (generator) :math:`g` in year `y`.
 
 Process capacity limit rule
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The capacity pf each process :math:`p` is limited by a maximal and minimal
-capacity, :math:`\overline{K}_p` and :math:`\underline{K}_p`, respectively,
+The capacity pf each process :math:`g` is limited by a maximal and minimal
+capacity, :math:`\overline{K}_g` and :math:`\underline{K}_g`, respectively,
 which are both given to the model as parameters:
 
 .. math::
-   &\forall p \in P:\\
-   &\underline{K}_p\leq\kappa_{p}\leq\overline{K}_p.
+   &\forall y \in Y, \forall g \in G:\\
+   &\underline{K}_{y,g}\leq\kappa_{y,g}\leq\overline{K}_{y,g}.
 
 All further constraints are time dependent and are determinants of the unit
 commitment, i.e. the time series of operation of all processes and commodity
@@ -72,31 +71,31 @@ balanced in each time step. As a helper function the already mentioned
 commodity balance is calculated in the following way:
 
 .. math::
-   &\forall c \in C,~t\in T_m:\\\\
-   &\text{CB}(c,t)=
-    \sum_{(c,p)\in C^{\mathrm{out}}_p}\epsilon^{\text{in}}_{cpt}-
-    \sum_{(c,p)\in C^{\mathrm{in}}_p}\epsilon^{\text{out}}_{cpt}.
+   &\forall y \in Y, \forall d \in D,~t\in T_m:\\\\
+   &\text{CB}(y,d,t)=
+    \sum_{(d,g)\in D^{\mathrm{out}}_{g}}\epsilon^{\text{in}}_{y,d,g,t}-
+    \sum_{(d,g)\in D^{\mathrm{in}}_g}\epsilon^{\text{out}}_{y,d,g,t}.
 
-Here, the tuple sets :math:`C^{\mathrm{in,out}}_p` represent all input and
-output commodities of process :math:`p`, respectively. The commodity balance
-thus simply calculates how much more of commodity :math:`c` is emitted by than
-added to the system via process :math:`p` in timestep :math:`t`. Using
+Here, the tuple sets :math:`D^{\mathrm{in,out}}_g` represent all input and
+output commodities of process :math:`g`, respectively. The commodity balance
+thus simply calculates how much more of commodity :math:`d` is emitted by than
+added to the system via process :math:`g` in timestep :math:`t`. Using
 this term the vertex rule for the various commodity types can now be written in
 the following way:
 
 .. math::
-   \forall c \in C_{\text{st}},~t \in T_m:
-   \rho_{ct} \geq \text{CB}(c,t),
+   \forall y \in Y, \forall d \in D_{\text{st}},~t \in T_m:\;
+   \rho_{y,d,t} \geq \text{CB}(y,d,t),
 
-where :math:`C_{\text{st}}` is the set of stock commodities and:
+where :math:`D_{\text{st}}` is the set of stock commodities and:
 
 .. math::
-   \forall c \in C_{\text{dem}},~ t \in T_m:
-   -d_{ct} \geq \text{CB}(c,t),
+   \forall y \in Y, \forall d \in D_{\text{dem}},~ t \in T_m:\;
+   -E_{y,d,t} \geq \text{CB}(y,d,t),
 
-where :math:`C_{\text{dem}}` is the set of demand commodities and
-:math:`d_{ct}` the corresponding demand for commodity :math:`c` at time
-:math:`t`. These two rules thus state that all stock commodities that are
+where :math:`D_{\text{dem}}` is the set of demand commodities and
+:math:`E_{y,d,t}` the corresponding demand for commodity :math:`d` at time
+:math:`t` at year :math:`y`. These two rules thus state that all stock commodities that are
 consumed at any time in any process must be taken from the stock and that all
 demands have to be fulfilled at each time step.
 
@@ -108,14 +107,14 @@ of stock commodity that can be retrieved annually and the latter limits the
 same quantity per timestep. the two rules take the following form:
 
 .. math::
-   &\forall c \in C_{\text{st}}:\\
-   &w \sum_{t\in T_{m}}\rho_{ct}\leq \overline{L}_c\\\\
-   &\forall c \in C_{\text{st}},~t\in T_m:\\
-   &\rho_ct\leq \overline{l}_{c},
+   &\forall y \in Y, \forall d \in D_{\text{st}}:\\
+   &w \sum_{t\in T_{m}}\rho_{y,d,t}\leq \Lambda_{y,d}\\\\
+   &\forall d \in D_{\text{st}},~t\in T_m:\\
+   &\rho_{y,d,t}\leq \lambda_{y,d},
 
-where :math:`\overline{L}_c` and :math:`\overline{l}_c` are the totally allowed
-annual and hourly retrieval of commodity :math:`c` from the stock,
-respectively.
+where :math:`\Lambda_{y,d}` and :math:`\lambda_{y,d}` are the totally allowed
+annual and hourly retrieval of commodity :math:`d` from the stock,
+respectively, in year :math:`y`.
 
 Environmental commodity limitations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -124,14 +123,14 @@ per hour or per year. Both properties are assured by the following two
 rules:
 
 .. math::
-   &\forall c \in C_{\text{env}}:\\
-   &-w \sum_{t\in T_{m}}\text{CB}(c,t)\leq \overline{M}_c\\\\
-   &\forall c \in C_{\text{env}},~t\in T_m:\\
-   & -\text{CB}(c,t)\leq \overline{m}_{c},
+   &\forall y \in Y, \forall d \in D_{\text{env}}:\\
+   &-w \sum_{t\in T_{m}}\text{CB}(y,d,t)\leq \Lambda^\text{env}_{y,d}\\\\
+   &\forall y \in Y, \forall d \in D_{\text{env}},~t\in T_m:\\
+   & -\text{CB}(y,d,t)\leq \lambda^\text{env}_{y,d}\,
 
-where :math:`\overline{M}_c` and :math:`\overline{m}_c` are the totally allowed
-annual and hourly emissions of environmental commodity :math:`c` to the
-atmosphere, respectively.
+where :math:`\Lambda^\text{env}_{y,d}` and :math:`\lambda^\text{env}_{y,d}` are the totally allowed
+annual and hourly emissions of environmental commodity :math:`d` to the
+atmosphere, respectively, in year :math:`y`.
 
 Process dispatch constraints
 ----------------------------
@@ -142,36 +141,36 @@ urbs all processes are mimo-processes, i.e., in general they in take in
 multiple commodities as inputs and give out multiple commodities as outputs.
 The respective ratios between the respective commodity flows remain normally
 fixed. The operational state of the process is then captured in just one
-variable, the process throughput :math:`\tau_{pt}` and is is linked to the
+variable, the process throughput :math:`\tau_{gt}` and is is linked to the
 commodity flows via the following two rules:
 
 .. math::
-   &\forall p\in P,~c\in C,~t \in T_m:\\
-   &\epsilon^{\text{in}}_{pct}=r^{\text{in}}_{pc}\tau_{pt}\\
-   &\epsilon^{\text{out}}_{pct}=r^{\text{out}}_{pc}\tau_{pt},
+   &\forall y \in Y, \forall g\in G,~d\in D,~t \in T_m:\\
+   &\epsilon^{\text{in}}_{y,g,d,t}=r^{\text{in}}_{y,g,d}\tau_{y,g,t}\\
+   &\epsilon^{\text{out}}_{y,g,d,t}=r^{\text{out}}_{y,g,d}\tau_{y,g,t},
 
-where :math:`r^{\text{in, out}}_{pc}` are the constant factors linking the
+where :math:`r^{\text{in, out}}_{y,g,d}` are the constant factors linking the
 commodity flow to the operational state. The efficiency :math:`\eta` of the
-process :math:`p` for the conversion of commodity :math:`c_1` into commodity
-:math:`c_2` is then simply given by:
+process :math:`g` for the conversion of commodity :math:`d_1` into commodity
+:math:`d_2` is then simply given by:
 
 .. math::
-   \eta=\frac{r^{\text{out}}_{pc_2}}{r^{\text{in}}_{pc_1}}.
+   \eta=\frac{r^{\text{out}}_{y,g,d_2}}{r^{\text{in}}_{y,g,d_1}}.
 
 Basic process throughput rules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The throughput :math:`\tau_{pt}` of a process is limited by its installed
+The throughput :math:`\tau_{gt}` of a process is limited by its installed
 capacity and the specified minimal operational state. Furthermore, the
 switching speed of a process can be limited:
 
 .. math::
-   &\forall p\in P,~t\in T_m:\\
-   &\tau_{pt}\leq \kappa_{p}\\
-   &\tau_{pt}\geq \underline{P}_{p}\kappa_{p}\\
-   &|\tau_{pt}-\tau_{p(t-1)}|\leq \Delta t\overline{PG}_p\kappa_{p},
+   &\forall y \in Y, \forall g\in G,~t\in T_m:\\
+   &\tau_{y,g,t}\leq \kappa_{y,g}\\
+   &\tau_{y,g,t}\geq \underline{P}_{y,g}\kappa_{y,g}\\
+   &|\tau_{y,g,t}-\tau_{y,g,(t-1)}|\leq \Delta t\overline{PG}_{y,g}\kappa_{y,g},
 
-where :math:`\underline{P}_{p}` is the normalized, minimal operational state of
-the process and :math:`\overline{PG}_p` the normalized, maximal gradient of the
+where :math:`\underline{P}_{y,g}` is the normalized, minimal operational state of
+the process and :math:`\overline{PG}_{y,g}` the normalized, maximal gradient of the
 operational state in full capacity per timestep.
 
 Intermittent supply rule
@@ -183,11 +182,11 @@ renewable energies but can be used whenever a certain operation time series of
 a given process is desired
 
 .. math::
-   &\forall p\in P,~c\in C_{\text{sup}},~t\in T_m:\\
-   &\epsilon^{\text{in}}_{cpt}=s_{ct}\kappa_{p}.
+   &\forall y \in Y, \forall g\in G,~d\in D_{\text{sup}},~t\in T_m:\\
+   &\epsilon^{\text{in}}_{y,g,d,t}=\gamma^{capa}_{y,g,t}\kappa_{y,g}.
 
-Here, :math:`s_{ct}` is the time series that governs the exact operation of
-process :math:`p`, leaving only its capacity :math:`\kappa_{p}` as a free
+Here, :math:`\gamma^{capa}_{y,g,t}` is the time series that governs the exact operation of
+process :math:`g`, leaving only its capacity :math:`\kappa_{y,g}` as a free
 variable.
 
 Part load behavior
@@ -201,27 +200,27 @@ is thus possible to use purely linear functions to get a nonlinear behavior of
 the efficiency of the form:
 
 .. math::
-   \eta=\frac{a+b\tau_{pt}}{c+d\tau_{pt}},
+   \eta=\frac{a+b\tau_{y,g,t}}{c+d\tau_{y,g,t}},
 
 where a,b,c and d are some constants. Specifically, the input and output ratios
 can be set to vary linearly between their respective values at full load
-:math:`r^{\text{in,out}}_{pc}` and their values at the minimal allowed
-operational state :math:`\underline{P}_{p}\kappa_p`, which are given by
-:math:`\underline{r}^{\text{in,out}}_{pc}`. This is achieved with the following
+:math:`r^{\text{in,out}}_{y,g,d}` and their values at the minimal allowed
+operational state :math:`\underline{P}_{y,g}\kappa_{y,g}`, which are given by
+:math:`\underline{r}^{\text{in,out}}_{y,g,d}`. This is achieved with the following
 equations:
 
 .. math::
-   &\forall p\in P^{\text{partload}},~c\in C,~t\in T_m:\\\\
-   &\epsilon^{\text{in,out}}_{pct}=\Delta t\cdot\left(
-   \frac{\underline{r}^{\text{in,out}}_{pc}-r^{\text{in,out}}_{pc}}
-   {1-\underline{P}_p}\cdot \underline{P}_p\cdot \kappa_p+
-   \frac{r^{\text{in,out}}_{pc}-
-   \underline{P}_p\underline{r}^{\text{in,out}}_{pc}}
-   {1-\underline{P}_p}\cdot \tau_{pt}\right).
+   &\forall y \in Y, \forall g\in G^{\text{partload}},~d\in D,~t\in T_m:\\\\
+   &\epsilon^{\text{in,out}}_{y,g,d,t}=\Delta t\cdot\left(
+   \frac{\underline{r}^{\text{in,out}}_{g,d}-r^{\text{in,out}}_{y,g,d}}
+   {1-\underline{P}_{y,g}}\cdot \underline{P}_g\cdot \kappa_{y,g}+
+   \frac{r^{\text{in,out}}_{y,g,d}-
+   \underline{P}_g\underline{r}^{\text{in,out}}_{y,g,d}}
+   {1-\underline{P}_{y,g}}\cdot \tau_{y,g,t}\right).
 
 A few restrictions have to be kept in mind when using this feature:
 
-* :math:`\underline{P}_p` has to be set larger than 0 otherwise the feature
+* :math:`\underline{P}_{y,g}` has to be set larger than 0 otherwise the feature
   will work but not have any effect.
 * Environmental output commodities have to mimic the behavior of the inputs by
   which they are generated. Otherwise the emissions per unit of input would
