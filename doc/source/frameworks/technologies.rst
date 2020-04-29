@@ -41,7 +41,7 @@ Load
 
 .. math::
 
-        {\epsilon^{gen}_{y,r,g,t} = \epsilon^{capa}_{y,r,g,t}} \quad \forall y \in Y, r \in R, g\in G, t\in T
+        {E^{gen}_{y,r,g,t} = E^{capa}_{y,r,g,t}} \quad \forall y \in Y, r \in R, g\in G, t\in T
 
 
 Electricity-only units
