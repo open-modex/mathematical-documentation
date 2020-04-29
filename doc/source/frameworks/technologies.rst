@@ -2,6 +2,47 @@ Modelling of technologies
 =========================
 Here the framework's representations of technologies are shown
 
+Generation
+**********
+
+oemof.tabular
+'''''''''''''
+
+Dispatchable
+------------
+
+.. math::
+
+        {0 <= v^{gen}_{y,r,g,t} <= \overline{\kappa}^{capa}_{y,r,g}} \quad \forall y \in Y, r\ in R, g\in G, t\in T
+
+
+Conversion
+----------
+
+.. math::
+
+	{v^{fuse}_{y,r,g,t}}  = \frac{v^{gen}_{y,r,g,t}}{\gamma^{total,gen}_{y,r,g}} \quad \forall y \in Y, r\in R, g\in G, t\in T
+
+
+Volatile
+--------
+
+.. math::
+
+        {v^{gen}_{y,r,g,t} = \kappa^{capa}_{y,r,g} \cdot \gamma^{capa}_{y,r,g,t}} \quad \forall y \in Y, r\ in R, g\in G, t\in T
+
+
+Consumption
+***********
+
+
+Load
+----
+
+.. math::
+
+        {\Epsilon^{gen}_{y,r,g,t} = \Epsilon^{capa}_{y,r,g,t}} \quad \forall y \in Y, r\ in R, g\in G, t\in T
+
 
 Electricity-only units
 **********************
@@ -124,4 +165,7 @@ urbs
 .. math::
     &\forall y\in Y,~d\in D,~r\in R,~t\in T_m:\\
     &\epsilon^{\text{con}}_{y,d,r,t}=\epsilon^{\text{con}}_{y,d,r,(t-1)}\cdot (1-d_{y,d,r})^{\Delta t}+e^{\text{in}}_{y,d,r}\cdot \epsilon^{\text{in}}_{y,d,r,t}- \frac{\epsilon^{\text{out}}_{y,d,r,t}}{e^{\text{out}}_{y,d,r}}.
-  
+
+
+oemof.tabular
+'''''''''''''
