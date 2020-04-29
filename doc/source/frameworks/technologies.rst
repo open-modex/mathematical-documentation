@@ -80,6 +80,16 @@ oemof.tabular
 Link
 ----
 
+.. math::
+
+  & {v^{trans,in}_{y,r,g,t} = v^{trans,out}_{y,r,g,t}}
+    \begin{cases}
+    \frag{1}{\gamma^{trans}_{r,g}} & v^{trans,in}_{y,r,g,t} \geq 0 \\
+    \gamma^{trans}_{r,g} & v^{trans,in}_{y,r,g,t} \leq 0
+    \end{cases}
+  \\
+  & \forall y \in Y, r \in R, g \in G, t \in T
+
 
 Electricity-only units
 **********************
