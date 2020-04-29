@@ -80,15 +80,15 @@ oemof.tabular
 Link
 ----
 
+.. image:: images/link.pdf
+   :width: 30 %
+
 .. math::
 
-  & {v^{trans,in}_{y,r,g,t} = v^{trans,out}_{y,r,g,t}}
-    \begin{cases}
-    \frac{1}{\gamma^{trans}_{r,g}} & v^{trans,in}_{y,r,g,t} \geq 0 \\
-    \gamma^{trans}_{r,g} & v^{trans,in}_{y,r,g,t} \leq 0
-    \end{cases}
+  & {v^{trans,in_i}_{y,r,g,t} =
+    \frac{1}{\gamma^{trans}_{r,g}} \cdot v^{trans,gen_i}_{y,r,g,t}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T
+  & \forall y \in Y, r \in R, g \in G, t \in T, i in \{1, 2\}
 
 
 Electricity-only units
