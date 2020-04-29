@@ -169,3 +169,13 @@ urbs
 
 oemof.tabular
 '''''''''''''
+
+.. math::
+
+        {0 = \epsilon^{con}_{y,r,g,t} - \epsilon^{con}_{y,r,g,t-1} \cdot (1 - \gamma^{loss,con}_{y,r,g}) - \epsilon^{in}_{y,r,g,t} \cdot \gamma^{in}_{y,r,g} + \epsilon^{out}_{y,r,g,t} \cdot \gamma^{out}_{y,r,g}}
+
+        & \forall y \in Y, r\in A, g\in G, t\in T > 0
+
+        {\epsilon^{con}_{y,r,g,t0} = \epsilon^{con}_{y,r,g,t-1}}
+
+        & \forall y \in Y, r\in A, g\in G, t\in T
