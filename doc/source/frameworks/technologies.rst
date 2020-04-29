@@ -42,6 +42,8 @@ Volatile
 Consumption
 ***********
 
+oemof.tabular
+'''''''''''''
 
 Load
 ----
