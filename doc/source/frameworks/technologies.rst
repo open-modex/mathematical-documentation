@@ -13,7 +13,7 @@ Dispatchable
 
 .. math::
 
-        {0 <= v^{gen}_{y,r,g,t} <= \overline{\kappa}^{capa}_{y,r,g}} \quad \forall y \in Y, r\ in R, g\in G, t\in T
+        {0 <= v^{gen}_{y,r,g,t} <= \overline{\kappa}^{capa}_{y,r,g}} \quad \forall y \in Y, r \in R, g\in G, t\in T
 
 
 Conversion
@@ -21,7 +21,7 @@ Conversion
 
 .. math::
 
-	{v^{fuse}_{y,r,g,t}}  = \frac{v^{gen}_{y,r,g,t}}{\gamma^{total,gen}_{y,r,g}} \quad \forall y \in Y, r\in R, g\in G, t\in T
+	{v^{fuse}_{y,r,g,t}}  = \frac{v^{gen}_{y,r,g,t}}{\gamma^{total,gen}_{y,r,g}} \quad \forall y \in Y, r \in R, g\in G, t\in T
 
 
 Volatile
@@ -29,7 +29,7 @@ Volatile
 
 .. math::
 
-        {v^{gen}_{y,r,g,t} = \kappa^{capa}_{y,r,g} \cdot \gamma^{capa}_{y,r,g,t}} \quad \forall y \in Y, r\ in R, g\in G, t\in T
+        {v^{gen}_{y,r,g,t} = \kappa^{capa}_{y,r,g} \cdot \gamma^{capa}_{y,r,g,t}} \quad \forall y \in Y, r \in R, g\in G, t\in T
 
 
 Consumption
@@ -41,7 +41,7 @@ Load
 
 .. math::
 
-        {\Epsilon^{gen}_{y,r,g,t} = \Epsilon^{capa}_{y,r,g,t}} \quad \forall y \in Y, r\ in R, g\in G, t\in T
+        {\epsilon^{gen}_{y,r,g,t} = \epsilon^{capa}_{y,r,g,t}} \quad \forall y \in Y, r \in R, g\in G, t\in T
 
 
 Electricity-only units
