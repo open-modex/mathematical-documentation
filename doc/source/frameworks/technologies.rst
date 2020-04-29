@@ -24,7 +24,7 @@ Conversion
 .. math::
 
   & {v^{fuse}_{y,r,g,t}} =
-  \frac{\gamma^{in,gen}_{r,g}}{\gamma^{out,gen}_{r,g}}{v^{gen}_{y,r,g,t}}
+  \frac{1}{\gamma^{out,gen}_{r,g}}{v^{gen}_{y,r,g,t}}
   \\
   & \forall y \in Y, r \in R, g \in G, t \in T
 
