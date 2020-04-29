@@ -14,7 +14,7 @@ Dispatchable
 .. math::
 
   {0 <= v^{gen}_{y,r,g,t} <= \kappa}^{capa}_{r,g}
-  \quad
+  \\
   \forall y \in Y, r \in R, g \in G, t \in T
 
 
@@ -25,7 +25,7 @@ Conversion
 
   {v^{fuse}_{y,r,g,t}} =
   \frac{\gamma^{in,gen}_{r,g}}{\gamma^{out,gen}_{r,g}}{v^{gen}_{y,r,g,t}}
-  \quad
+  \\
   \forall y \in Y, r \in R, g \in G, t \in T
 
 
@@ -35,7 +35,7 @@ Volatile
 .. math::
 
   {v^{gen}_{y, r,g,t} = \kappa^{capa}_{r,g} \cdot \gamma^{capa}_{y,r,g,t}}
-  \quad
+  \\
   \forall y \in Y, r \in R, g \in G, t \in T
 
 
@@ -49,7 +49,7 @@ Load
 .. math::
 
   {E^{gen}_{y,r,g,t} = E^{capa}_{y,r,g,t}}
-  \quad
+  \\
   \forall y \in Y, r \in R, g \in G, t \in T
 
 
