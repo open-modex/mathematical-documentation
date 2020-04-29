@@ -34,7 +34,7 @@ Volatile
 
 .. math::
 
-  & {v^{gen}_{y, r,g,t} = \kappa^{capa}_{r,g} \cdot \gamma^{capa}_{y,r,g,t}}
+  & {v^{gen}_{y,r,g,t} = \kappa^{capa}_{r,g} \cdot \gamma^{capa}_{y,r,g,t}}
   \\
   & \forall y \in Y, r \in R, g \in G, t \in T
 
@@ -53,6 +53,32 @@ Load
   & {E^{gen}_{y,r,g,t} = E^{capa}_{y,r,g,t}}
   \\
   & \forall y \in Y, r \in R, g \in G, t \in T
+
+
+Bus
+***
+
+oemof.tabular
+'''''''''''''
+
+Bus
+---
+
+.. math::
+
+  & {v^{use}_{y,r,g,t} = v^{gen}_{y,r,g,t}}
+  \\
+  & \forall y \in Y, r \in R, g \in G, t \in T
+
+
+Grid
+****
+
+oemof.tabular
+'''''''''''''
+
+Link
+----
 
 
 Electricity-only units
