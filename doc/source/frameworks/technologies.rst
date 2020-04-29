@@ -66,7 +66,7 @@ Bus
 
 .. math::
 
-  & {v^{use}_{y,r,g,t} = v^{gen}_{y,r,g,t}}
+  & {v^{in}_{y,r,g,t} = v^{gen}_{y,r,g,t}}
   \\
   & \forall y \in Y, r \in R, g \in G, t \in T
 
