@@ -13,7 +13,7 @@ Dispatchable
 
 .. math::
 
-        {0 <= v^{gen}_{y,r,g,t} <= \overline{\kappa}^{capa}_{y,r,g}} \quad \forall y \in Y, r \in R, g\in G, t\in T
+        {0 <= v^{gen}_{y,r,g,t} <= \kappa}^{capa}_{y,r,g} \quad \forall y \in Y, r \in R, g\in G, t\in T
 
 
 Conversion
