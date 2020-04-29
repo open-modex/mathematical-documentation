@@ -225,8 +225,8 @@ oemof.tabular
 
   & {\epsilon^{con}_{y,r,g,t} = \epsilon^{con}_{y,r,g,t-1} \cdot (1 - \gamma^{loss,con}_{r,g}) - frac{\epsilon^{out}_{y,r,g,t}}_{\gamma^{out}_{r,g}} + \epsilon^{in}_{y,r,g,t} \cdot \gamma^{in}_{y,r,g}}
   \\
-  & \forall y \in Y, r\in R, g\in G, t\in \{t\in T | t > 0\}
+  & \forall y \in Y, r\in R, g\in G, {t\in T | t > 0\} \\
 
-  & {\epsilon^{con}_{y,r,g,t0} = \epsilon^{con}_{y,r,g,t-1}}
+  & {\epsilon^{con}_{y,r,g,t0} = \epsilon^{con}_{y,r,g,t_last}}
   \\
   & \forall y \in Y, r\in R, g\in G, t\in T
