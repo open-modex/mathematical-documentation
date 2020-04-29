@@ -88,7 +88,7 @@ Link
   & {v^{trans,in_i}_{y,r,g,t} =
     \frac{1}{\gamma^{trans}_{r,g}} \cdot v^{trans,gen_i}_{y,r,g,t}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T, i in \{1, 2\}
+  & \forall y \in Y, r \in R, g \in G, t \in T, i \in \{1, 2\}
 
 
 Electricity-only units
