@@ -188,11 +188,9 @@ urbs
 .. math::
 
     &\epsilon^{\text{in}}_{y,g,d,t}=r^{\text{in}}_{y,g,d}\tau_{y,g,t} \\
-    &\forall y \in Y, g \in G, ~d \in D, ~t \in T_m \\
     &\epsilon^{\text{out}}_{y,g,d,t}=r^{\text{out}}_{y,g,d}\tau_{y,g,t} \\
-    &\forall y \in Y, g \in G, ~d \in D, ~t \in T_m \\
     &\tau_{y,g,t}\leq \kappa_{y,g} \\
-    &\forall y \in y, g \in G, ~d \in D, ~t \in T_m
+    &\forall y \in Y, ~g \in G, ~d \in D, ~t \in T_m
 
 Storages
 ********
