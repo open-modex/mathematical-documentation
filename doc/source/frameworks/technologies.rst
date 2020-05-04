@@ -80,7 +80,7 @@ oemof.tabular
 Link
 ----
 
-.. image:: images/link.pdf
+.. image:: images/link.png
    :width: 30 %
 
 .. math::
