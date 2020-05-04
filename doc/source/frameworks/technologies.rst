@@ -231,5 +231,6 @@ oemof.tabular
   & \forall y \in Y, r\in R, g\in G, t\in T, t > 0
   \\
   & {\epsilon^{con}_{y,r,g,t_0} = \epsilon^{con}_{y,r,g,t_{\infty}}} \\
+  & t_0, t_{\infty} \in T
   \\
   & \forall y \in Y, r\in R, g\in G, t\in T
