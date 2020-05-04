@@ -228,9 +228,7 @@ oemof.tabular
     - \frac{\epsilon^{out}_{y,r,g,t}}{\gamma^{out}_{r,g}}
     + \epsilon^{in}_{y,r,g,t} \cdot \gamma^{in}_{y,r,g}
   \\
-  & \forall y \in Y, r\in R, g\in G, t\in T\setminus\{t_0\}
-  \\
   & {\epsilon^{con}_{y,r,g,t_0} = \epsilon^{con}_{y,r,g,t_{\infty}}} \\
   & t_0, t_{\infty} \in T
   \\
-  & \forall y \in Y, r\in R, g\in G, t\in T
+  & \forall y \in Y, r\in R, g\in G, t\in T\setminus\{t_0\}
