@@ -235,7 +235,7 @@ Do I understand it correct with Balmorel that v^{sto,vol} refers to the amount o
 
 .. math::
 
-    &v^{sto,vol}_{g,r,t,y} = v^{sto,vol}_{g,r,t-1,y} + v^{sto,load}_{g,r,t-1,y}\cdot \gamma^{in}_{g,y} - \frac{v^{sto,unload}_{g,r,t-1,y}}{\gamma^{in}_{g,y}}\\ 
+    &v^{sto,vol}_{g,r,t,y} = v^{sto,vol}_{g,r,t-1,y} + v^{sto,load}_{g,r,t-1,y}\cdot \gamma^{in}_{g,y} - \frac{v^{sto,unload}_{g,r,t-1,y}}{\gamma^{in}_{g,y}} \quad \forall g \in G, r \in R, t \in T, y \in Y\\ 
 
 
 
