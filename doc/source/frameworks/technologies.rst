@@ -2,6 +2,30 @@ Modelling of technologies
 =========================
 Here the framework's representations of technologies are shown
 
+Declaration of notation
+***********************
+
+.. |vg| mathmacro:: v^{gen}
+.. |vu| mathmacro:: v^{use}
+.. |kk| mathmacro:: \kappa^{capa}
+.. |go| mathmacro:: \gamma^{out,gen}
+.. |gi| mathmacro:: \gamma^{in,gen}
+.. |yrgt| mathmacro:: \forall y \in Y, r \in R, g \in G, t \in T
+
++--------------------------+--------------------------------+
+| Notation                 | Short description              |
++==========================+================================+
+| .. math:: \vg            | Electricity production         |
++--------------------------+--------------------------------+
+| .. math:: \vu            | Fuel usage                     |
++--------------------------+--------------------------------+
+| .. math:: \kk            | Installed capacity             |
++--------------------------+--------------------------------+
+| .. math:: \go            | Plant efficiency (input)       |
++--------------------------+--------------------------------+
+| .. math:: \gi            | Plant efficiency (output)      |
++--------------------------+--------------------------------+
+
 Generation
 **********
 
@@ -13,9 +37,9 @@ Dispatchable
 
 .. math::
 
-  & {0 <= v^{gen}_{y,r,g,t} <= \kappa}^{capa}_{r,g}
+  & {0 <= \vg_{y,r,g,t} <= \kk_{r,g}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T
+  & \yrgt
 
 
 Conversion
@@ -23,10 +47,10 @@ Conversion
 
 .. math::
 
-  & {v^{fuse}_{y,r,g,t}} =
-  \frac{1}{\gamma^{out,gen}_{r,g}}{v^{gen}_{y,r,g,t}}
+  & {\vu_{y,r,g,t}} =
+  \frac{1}{\go_{r,g}}{\vg_{y,r,g,t}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T
+  & \yrgt
 
 
 Volatile
