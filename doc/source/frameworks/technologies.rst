@@ -2,20 +2,32 @@ Modelling of technologies
 =========================
 Here the framework's representations of technologies are shown
 
-Declaration of notation
-***********************
-
+..  substitutions of variable and parameter names
 .. |vg| mathmacro:: v^{gen}
-.. |vu| mathmacro:: v^{use}
+.. |vh| mathmacro:: v^{gen,heat}
+.. |vu| mathmacro:: v^{fuse}
 .. |kk| mathmacro:: \kappa^{capa}
 .. |go| mathmacro:: \gamma^{out,gen}
 .. |gi| mathmacro:: \gamma^{in,gen}
+.. |gV| mathmacro:: \gamma^{CV}
+.. |gB| mathmacro:: \gamma^{CB}
+
+
+.. other substitutions
 .. |yrgt| mathmacro:: \forall y \in Y, r \in R, g \in G, t \in T
+
+Declaration of notation
+***********************
+
+Variables and parameters
+''''''''''''''''''''''''
 
 +--------------------------+--------------------------------+
 | Notation                 | Short description              |
 +==========================+================================+
 | .. math:: \vg            | Electricity production         |
++--------------------------+--------------------------------+
+| .. math:: \vh            | Heat production                |
 +--------------------------+--------------------------------+
 | .. math:: \vu            | Fuel usage                     |
 +--------------------------+--------------------------------+
@@ -25,6 +37,28 @@ Declaration of notation
 +--------------------------+--------------------------------+
 | .. math:: \gi            | Plant efficiency (output)      |
 +--------------------------+--------------------------------+
+| .. math:: \gV            |                                |
++--------------------------+--------------------------------+
+| .. math:: \gB            | Back-pressure coefficient      |
++--------------------------+--------------------------------+
+
+Sets
+''''
+
++--------------------------+--------------------------------+
+| Notation                 | Short description              |
++==========================+================================+
+| .. math:: y \in Y        | Years                          |
++--------------------------+--------------------------------+
+| .. math:: r \in R        | Regions                        |
++--------------------------+--------------------------------+
+| .. math:: g \in G        | Technologies                   |
++--------------------------+--------------------------------+
+| .. math:: t \in T        | Timesteps                      |
++--------------------------+--------------------------------+
+| .. math:: a \in A        |                                |
++--------------------------+--------------------------------+
+
 
 Generation
 **********
@@ -58,9 +92,9 @@ Volatile
 
 .. math::
 
-  & {v^{gen}_{y,r,g,t} = \kappa^{capa}_{r,g} \cdot \gamma^{capa}_{y,r,g,t}}
+  & {\vg_{y,r,g,t} = \kk_{r,g} \cdot \gamma^{capa}_{y,r,g,t}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T
+  & \yrgt
 
 
 Consumption
@@ -76,7 +110,7 @@ Load
 
   & {E^{gen}_{y,r,g,t} = E^{capa}_{y,r,g,t}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T
+  & \yrgt
 
 
 Bus
@@ -90,9 +124,9 @@ Bus
 
 .. math::
 
-  & {v^{in}_{y,r,g,t} = v^{gen}_{y,r,g,t}}
+  & {v^{in}_{y,r,g,t} = \vg_{y,r,g,t}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T
+  & \yrgt
 
 
 Grid
@@ -112,7 +146,7 @@ Link
   & {v^{trans,in_i}_{y,r,g,t} =
     \frac{1}{\gamma^{trans}_{r,g}} \cdot v^{trans,gen_i}_{y,r,g,t}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T, i \in \{1, 2\}
+  & \yrgt, i \in \{1, 2\}
 
 
 Electricity-only units
@@ -128,7 +162,7 @@ The related equation for this technology is:
 
 .. math::
 
-	{v^{fuse}_{y,a,g,t}}  = \frac{v^{gen}_{y,a,g,t}}{\gamma^{in,gen}_{g}} \quad \forall y \in Y, a\in A, g\in G, t\in T
+	{\vu_{y,a,g,t}}  = \frac{\vg_{y,a,g,t}}{\gi_{g}} \quad \forall y \in Y, a\in A, g\in G, t\in T
 
 Heat-only units
 ***************
@@ -143,7 +177,7 @@ The related equation for this technology is:
 
 .. math::
 
-	{v^{fuse}_{y,a,g,t}}  = \frac{v^{gen,heat}_{y,a,g,t}}{\gamma^{in,gen}_{g}} \quad \forall y \in Y, a\in A, g\in G, t\in T
+	{\vu_{y,a,g,t}}  = \frac{\vh_{y,a,g,t}}{\gi_{g}} \quad \forall y \in Y, a\in A, g\in G, t\in T
 
 CHP units: backpressure
 ***********************
@@ -162,7 +196,7 @@ The related equations for this technology is:
 
 .. math::
 
-	& {v^{fuse}_{y,a,g,t}}  = \frac{v^{gen}_{y,a,g,t} + \gamma^{CV}_g \cdot v^{gen,heat}_{y,a,g,t}}{\gamma^{in,gen}_{g}}
+	& {\vu_{y,a,g,t}}  = \frac{\vg_{y,a,g,t} + \gV_g \cdot \vh_{y,a,g,t}}{\gi_{g}}
 	
 	& \forall y \in Y, a\in A, g\in G, t\in T
 
@@ -170,7 +204,7 @@ The related equations for this technology is:
 
 .. math::
 
-	v^{gen}_{y,a,g,t} = v^{gen,heat}_{y,a,g,t} \cdot \gamma^{CB}_g \quad \forall y \in Y, a\in A, g\in G, t\in T
+	\vg_{y,a,g,t} = \vh_{y,a,g,t} \cdot \gB_g \quad \forall y \in Y, a\in A, g\in G, t\in T
 
 CHP units: extraction
 *********************
@@ -187,7 +221,7 @@ The related equations for this technology is:
 
 .. math::
 
-	& {v^{fuse}_{y,a,g,t}}  = \frac{v^{gen}_{y,a,g,t} + \gamma^{CV}_g \cdot v^{gen,heat}_{y,a,g,t}}{\gamma^{in,gen}_{g}}
+	& {\vu_{y,a,g,t}}  = \frac{\vg_{y,a,g,t} + \gV_g \cdot \vh_{y,a,g,t}}{\gi_{g}}
 	
 	& \forall y \in Y, a\in A, g\in G, t\in T
 
@@ -195,13 +229,13 @@ The related equations for this technology is:
 
 .. math::
 
-	v^{gen}_{y,a,g,t} \geq v^{gen,heat}_{y,a,g,t} \cdot \gamma^{CB}_g \quad \forall y \in Y, a\in A, g\in G, t\in T
+	\vg_{y,a,g,t} \geq \vh_{y,a,g,t} \cdot \gB_g \quad \forall y \in Y, a\in A, g\in G, t\in T
 
 3. Limited by Cv-line:
 
 .. math::
 
-	v^{gen}_{y,a,g,t} \leq \kappa^{capa}_{y,a,g} + v^{capa}_{y,a,g} - v^{gen,heat}_{y,a,g,t} \cdot \gamma^{CV}_g \quad \forall y \in Y, a\in A, g\in G, t\in T
+	\vg_{y,a,g,t} \leq \kk_{y,a,g} + v^{capa}_{y,a,g} - \vh_{y,a,g,t} \cdot \gV_g \quad \forall y \in Y, a\in A, g\in G, t\in T
 
 Generic processes
 *****************
@@ -227,7 +261,7 @@ This equation counts for all processes, no matter how many input or output fuels
 
 .. math::
 
-    &\frac{{v^{gen}_{f,g,m,r,t,y}}}{\gamma^{out_gen}_{f,g,m,r,y}} = \sum_{f\in F} v^{fuse}_{f,g,m,r,t,y} \cdot \gamma^{in_gen}_{f,g,m,r,y} \quad \forall f \in F, g \in G, m \in M, r \in R, t \in T, y \in Y\\ 
+    &\frac{{\vg_{f,g,m,r,t,y}}}{\gamma^{out_gen}_{f,g,m,r,y}} = \sum_{f\in F} \vu_{f,g,m,r,t,y} \cdot \gamma^{in_gen}_{f,g,m,r,y} \quad \forall f \in F, g \in G, m \in M, r \in R, t \in T, y \in Y\\
 
 Storages
 ********
@@ -241,7 +275,7 @@ Balmorel
 The necessary equation for this technology is:
 
 .. math::
-	& v^{sto,vol}_{y,a,g,t+1} = v^{sto,vol}_{y,a,g,t}\cdot \gamma^{total,gen}_{g} + v^{sto,load}_{y,a,g,t}\cdot \gamma^{in,gen}_{g} - v^{gen}_{y,a,g,t} \cdot \gamma^{out,gen}_{g}
+	& v^{sto,vol}_{y,a,g,t+1} = v^{sto,vol}_{y,a,g,t}\cdot \gamma^{total,gen}_{g} + v^{sto,load}_{y,a,g,t}\cdot \gi_{g} - \vg_{y,a,g,t} \cdot \go_{g}
 
 	& \forall y \in Y, a\in A, g\in G, t\in T
     
