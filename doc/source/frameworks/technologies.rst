@@ -11,6 +11,7 @@ Here the framework's representations of technologies are shown
 .. |gi| mathmacro:: \gamma^{in,gen}
 .. |gV| mathmacro:: \gamma^{CV}
 .. |gB| mathmacro:: \gamma^{CB}
+.. |gL| mathmacro:: \gamma^{loss,con}
 
 
 .. other substitutions
@@ -40,6 +41,8 @@ Variables and parameters
 | .. math:: \gV            |                                |
 +--------------------------+--------------------------------+
 | .. math:: \gB            | Back-pressure coefficient      |
++--------------------------+--------------------------------+
+| .. math:: \gL            | Energy loss                    |
 +--------------------------+--------------------------------+
 
 Sets
@@ -215,7 +218,7 @@ oemof.tabular
 .. math::
 
   & \epsilon^{con}_{y,r,g,t} =
-    \epsilon^{con}_{y,r,g,t-1} \cdot (1 - \gamma^{loss,con}_{r,g})
+    \epsilon^{con}_{y,r,g,t-1} \cdot (1 - \gL_{r,g})
     - \frac{\epsilon^{out}_{y,r,g,t}}{\gamma^{out}_{r,g}}
     + \epsilon^{in}_{y,r,g,t} \cdot \gamma^{in}_{y,r,g}
   \\
