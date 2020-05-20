@@ -1,21 +1,8 @@
+.. include:: ../macros.rst
+
 Modelling of technologies
 =========================
 Here the framework's representations of technologies are shown
-
-..  substitutions of variable and parameter names
-.. |vg| mathmacro:: v^{gen}
-.. |vh| mathmacro:: v^{gen,heat}
-.. |vu| mathmacro:: v^{fuse}
-.. |kk| mathmacro:: \kappa^{capa}
-.. |go| mathmacro:: \gamma^{out,gen}
-.. |gi| mathmacro:: \gamma^{in,gen}
-.. |gV| mathmacro:: \gamma^{CV}
-.. |gB| mathmacro:: \gamma^{CB}
-.. |gL| mathmacro:: \gamma^{loss,con}
-
-
-.. other substitutions
-.. |yrgt| mathmacro:: \forall y \in Y, r \in R, g \in G, t \in T
 
 Declaration of notation
 ***********************

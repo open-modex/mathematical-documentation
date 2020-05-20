@@ -3,6 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. include:: macros.rst
+
 Welcome to the mathematical documentation of the open_MODEX Frameworks!
 =======================================================================
 
