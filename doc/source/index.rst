@@ -3,8 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. include:: macros.rst
-
 Welcome to the mathematical documentation of the open_MODEX Frameworks!
 =======================================================================
 
@@ -16,6 +14,7 @@ For a basic introduction into the syntax of rst, check out the `sphinx help <htt
    :maxdepth: 2
    :caption: Contents:
 
+   notation
    frameworks/balmorel
    frameworks/genesys2
    frameworks/genesysmod
