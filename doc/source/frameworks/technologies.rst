@@ -1,5 +1,12 @@
 .. include:: ../macros.rst
 
+.. Besides math operations and set membership in formulas only placeholders
+   should be used to promote consistency.
+   To include a new placeholder update `../macros.rst` AND `../notation.rst`.
+   This is a global registry of symbol plus superscript combinations
+   representing a unique parameter or variable name. The definition of sets is
+   also part of `../notation.rst`.
+
 Modelling of technologies
 =========================
 Here the framework's representations of technologies are shown
