@@ -1,3 +1,12 @@
+.. include:: ../macros.rst
+
+.. Besides math operations and set membership in formulas only placeholders
+   should be used to promote consistency.
+   To include a new placeholder update `../macros.rst` AND `../notation.rst`.
+   This is a global registry of symbol plus superscript combinations
+   representing a unique parameter or variable name. The definition of sets is
+   also part of `../notation.rst`.
+
 Modelling of technologies
 =========================
 Here the framework's representations of technologies are shown
@@ -35,7 +44,7 @@ The related equation for this technology is:
 
 .. math::
 
-	{v^{fuse}_{y,a,g,t}}  = \frac{v^{gen}_{y,a,g,t}}{\gamma^{in,gen}_{g}} \quad \forall y \in Y, a\in A, g\in G, t\in T
+	{\vu_{y,a,g,t}}  = \frac{\vg_{y,a,g,t}}{\gi_{g}} \quad \forall y \in Y, a\in A, g\in G, t\in T
 
 Heat-only units
 ***************
@@ -52,7 +61,7 @@ The related equation for this technology is:
 
 .. math::
 
-	{v^{fuse}_{y,a,g,t}}  = \frac{v^{gen,heat}_{y,a,g,t}}{\gamma^{in,gen}_{g}} \quad \forall y \in Y, a\in A, g\in G, t\in T
+	{\vu_{y,a,g,t}}  = \frac{\vh_{y,a,g,t}}{\gi_{g}} \quad \forall y \in Y, a\in A, g\in G, t\in T
 
 CHP units: backpressure
 ***********************
@@ -73,7 +82,7 @@ The related equations for this technology is:
 
 .. math::
 
-	& {v^{fuse}_{y,a,g,t}}  = \frac{v^{gen}_{y,a,g,t} + \gamma^{CV}_g \cdot v^{gen,heat}_{y,a,g,t}}{\gamma^{in,gen}_{g}}
+	& {\vu_{y,a,g,t}}  = \frac{\vg_{y,a,g,t} + \gV_g \cdot \vh_{y,a,g,t}}{\gi_{g}}
 	
 	& \forall y \in Y, a\in A, g\in G, t\in T
 
@@ -81,7 +90,7 @@ The related equations for this technology is:
 
 .. math::
 
-	v^{gen}_{y,a,g,t} = v^{gen,heat}_{y,a,g,t} \cdot \gamma^{CB}_g \quad \forall y \in Y, a\in A, g\in G, t\in T
+	\vg_{y,a,g,t} = \vh_{y,a,g,t} \cdot \gB_g \quad \forall y \in Y, a\in A, g\in G, t\in T
 
 CHP units: extraction
 *********************
@@ -100,7 +109,7 @@ The related equations for this technology is:
 
 .. math::
 
-	& {v^{fuse}_{y,a,g,t}}  = \frac{v^{gen}_{y,a,g,t} + \gamma^{CV}_g \cdot v^{gen,heat}_{y,a,g,t}}{\gamma^{in,gen}_{g}}
+	& {\vu_{y,a,g,t}}  = \frac{\vg_{y,a,g,t} + \gV_g \cdot \vh_{y,a,g,t}}{\gi_{g}}
 	
 	& \forall y \in Y, a\in A, g\in G, t\in T
 
@@ -108,13 +117,13 @@ The related equations for this technology is:
 
 .. math::
 
-	v^{gen}_{y,a,g,t} \geq v^{gen,heat}_{y,a,g,t} \cdot \gamma^{CB}_g \quad \forall y \in Y, a\in A, g\in G, t\in T
+	\vg_{y,a,g,t} \geq \vh_{y,a,g,t} \cdot \gB_g \quad \forall y \in Y, a\in A, g\in G, t\in T
 
 3. Limited by Cv-line:
 
 .. math::
 
-	v^{gen}_{y,a,g,t} \leq \kappa^{capa}_{y,a,g} + v^{capa}_{y,a,g} - v^{gen,heat}_{y,a,g,t} \cdot \gamma^{CV}_g \quad \forall y \in Y, a\in A, g\in G, t\in T
+	\vg_{y,a,g,t} \leq \kk_{y,a,g} + v^{capa}_{y,a,g} - \vh_{y,a,g,t} \cdot \gV_g \quad \forall y \in Y, a\in A, g\in G, t\in T
 
 Storages
 ********
@@ -130,7 +139,7 @@ Balmorel
 The necessary equation for this technology is:
 
 .. math::
-	& v^{sto,vol}_{y,a,g,t+1} = v^{sto,vol}_{y,a,g,t}\cdot \gamma^{total,gen}_{g} + v^{sto,load}_{y,a,g,t}\cdot \gamma^{in,gen}_{g} - v^{gen}_{y,a,g,t} \cdot \gamma^{out,gen}_{g}
+	& \vsv_{y,a,g,t+1} = \vsv_{y,a,g,t}\cdot \gt_{g} + \vsl_{y,a,g,t}\cdot \gi_{g} - \vg_{y,a,g,t} \cdot \go_{g}
 
 	& \forall y \in Y, a\in A, g\in G, t\in T
     
@@ -144,11 +153,11 @@ urbs
 GENeSYS-MOD	
 '''''''''''
 
-Do I understand it correct with Balmorel that v^{sto,vol} refers to the amount of energy in a storage at a given time? Then I will use it this way here as well.
+Do I understand it correct with Balmorel that \vsv refers to the amount of energy in a storage at a given time? Then I will use it this way here as well.
 
 .. math::
 
-    &v^{sto,vol}_{g,r,t,y} = v^{sto,vol}_{g,r,t-1,y} + v^{sto,load}_{g,r,t-1,y}\cdot \gamma^{in}_{g,y} - \frac{v^{sto,unload}_{g,r,t-1,y}}{\gamma^{in}_{g,y}} \quad \forall g \in G, r \in R, t \in T, y \in Y\\ 
+    &\vsv_{g,r,t,y} = \vsv_{g,r,t-1,y} + \vsl_{g,r,t-1,y}\cdot \gamma^{in}_{g,y} - \frac{\vsu_{g,r,t-1,y}}{\gamma^{in}_{g,y}} \quad \forall g \in G, r \in R, t \in T, y \in Y\\
 
 
 
@@ -158,7 +167,7 @@ oemof.tabular
 .. math::
 
   & \epsilon^{con}_{y,r,g,t} =
-    \epsilon^{con}_{y,r,g,t-1} \cdot (1 - \gamma^{loss,con}_{r,g})
+    \epsilon^{con}_{y,r,g,t-1} \cdot (1 - \gL_{r,g})
     - \frac{\epsilon^{out}_{y,r,g,t}}{\gamma^{out}_{r,g}}
     + \epsilon^{in}_{y,r,g,t} \cdot \gamma^{in}_{y,r,g}
   \\
@@ -178,9 +187,9 @@ Dispatchable
 
 .. math::
 
-  & {0 <= v^{gen}_{y,r,g,t} <= \kappa}^{capa}_{r,g}
+  & {0 <= \vg_{y,r,g,t} <= \kk_{r,g}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T
+  & \yrgt
 
 
 Conversion
@@ -188,10 +197,10 @@ Conversion
 
 .. math::
 
-  & {v^{fuse}_{y,r,g,t}} =
-  \frac{1}{\gamma^{out,gen}_{r,g}}{v^{gen}_{y,r,g,t}}
+  & {\vu_{y,r,g,t}} =
+  \frac{1}{\go_{r,g}}{\vg_{y,r,g,t}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T
+  & \yrgt
 
 
 Volatile
@@ -199,9 +208,9 @@ Volatile
 
 .. math::
 
-  & {v^{gen}_{y,r,g,t} = \kappa^{capa}_{r,g} \cdot \gamma^{capa}_{y,r,g,t}}
+  & {\vg_{y,r,g,t} = \kk_{r,g} \cdot \gamma^{capa}_{y,r,g,t}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T
+  & \yrgt
 
 
 Consumption
@@ -217,7 +226,7 @@ Load
 
   & {E^{gen}_{y,r,g,t} = E^{capa}_{y,r,g,t}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T
+  & \yrgt
 
 
 Bus
@@ -231,9 +240,9 @@ Bus
 
 .. math::
 
-  & {v^{in}_{y,r,g,t} = v^{gen}_{y,r,g,t}}
+  & {v^{in}_{y,r,g,t} = \vg_{y,r,g,t}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T
+  & \yrgt
 
 
 Grid
@@ -245,7 +254,7 @@ oemof.tabular
 Link
 ----
 
-.. figure:: images/link.png
+.. image:: images/link.png
    :width: 50 %
 
 .. math::
@@ -253,7 +262,7 @@ Link
   & {v^{trans,in_i}_{y,r,g,t} =
     \frac{1}{\gamma^{trans}_{r,g}} \cdot v^{trans,gen_i}_{y,r,g,t}}
   \\
-  & \forall y \in Y, r \in R, g \in G, t \in T, i \in \{1, 2\}
+  & \yrgt, i \in \{1, 2\}
 
 Generic processes
 *****************

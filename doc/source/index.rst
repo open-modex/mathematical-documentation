@@ -14,6 +14,7 @@ For a basic introduction into the syntax of rst, check out the `sphinx help <htt
    :maxdepth: 2
    :caption: Contents:
 
+   notation
    frameworks/balmorel
    frameworks/genesys2
    frameworks/genesysmod
