@@ -19,7 +19,7 @@ VRE-units
 
    Used in: Balmorel
    
-.. figure:: images/vre_unit_genesys2.pdf
+.. figure:: images/vre_unit_genesys2.png
    :width: 70 %
 
    Used in: GENESYS_2
