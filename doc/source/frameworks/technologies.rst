@@ -41,6 +41,11 @@ Electricity-only units
    :width: 70 %
    
    Used in: Balmorel
+   
+.. figure:: images/electricity_only_unit_genesys2.png
+   :width: 70 %
+   
+   Used in: GENESYS_2
 
 Balmorel
 ''''''''
