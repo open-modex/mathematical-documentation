@@ -141,12 +141,13 @@ Storages
 .. figure:: images/balmorel_sto.png
    :width: 70 %
 
-   Used in Balmorel
+   Used in: Balmorel
    
 .. figure:: images/storage_unit_genesys2.png
    :width: 70 %
-   
-    Used in: GENESYS_2
+
+   Used in: GENESYS_2
+
 
 Balmorel
 ''''''''
