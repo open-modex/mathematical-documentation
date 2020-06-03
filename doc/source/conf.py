@@ -10,9 +10,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
 
 
 # -- Project information -----------------------------------------------------
@@ -23,13 +23,20 @@ author = 'open_MODEX'
 
 master_doc = 'index'
 
+# -- svgjinja configuration ----------------------------------------------------
+
+# jinja templates with file extension `.svg.j2` that should not be rendered
+exclude_templates = ['base.svg.j2']
+
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'fluiddoc.mathmacro'
+    'sphinx.ext.ifconfig',
+    'fluiddoc.mathmacro',
+    'svgjinja'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -68,3 +75,7 @@ html_static_path = ["_static"]
 mathjax_config = {
     "displayAlign": "left",
 }
+
+# https://www.sphinx-doc.org/en/master/usage/extensions/ifconfig.html
+def setup(app):
+    app.add_config_value('exclude_templates', exclude_templates, 'env')
