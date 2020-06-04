@@ -163,8 +163,8 @@ urbs
 ''''
 
 .. math::
-    &\epsilon^{\text{con}}_{y,d,r,t}=\epsilon^{\text{con}}_{y,d,r,(t-1)}\cdot (1-d_{y,d,r})^{\Delta t}+e^{\text{in}}_{y,d,r}\cdot \epsilon^{\text{in}}_{y,d,r,t}- \frac{\epsilon^{\text{out}}_{y,d,r,t}}{e^{\text{out}}_{y,d,r}}\\
-    &\forall y\in Y,~d\in D,~r\in R,~t\in T_m
+   &\epsilon^{\text{con}}_{t,y,r,s,c}=\epsilon^{\text{con}}_{(t-1),y,r,s,c}\cdot (1-d_{y,r,s,c})^{\Delta t}+\gamma^{\text{in}}_{y,r,s,c}\cdot \epsilon^{\text{in}}_{t,y,r,s,c}- \frac{\epsilon^{\text{out}}_{t,y,r,s,c}}{\gamma^{\text{out}}_{y,r,s,c}}\\
+    &\forall t\in T_m,~y\in Y,~r\in R,~s\in S,~c\in C
 
 GENeSYS-MOD	
 '''''''''''
