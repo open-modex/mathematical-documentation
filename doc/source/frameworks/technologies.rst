@@ -286,12 +286,34 @@ Generic processes
 urbs
 ''''
 
+Every generic process is described by the following equations:
+
 .. math::
 
-    &\epsilon^{\text{in}}_{y,g,d,t}=r^{\text{in}}_{y,g,d}\tau_{y,g,t} \\
-    &\epsilon^{\text{out}}_{y,g,d,t}=r^{\text{out}}_{y,g,d}\tau_{y,g,t} \\
-    &\tau_{y,g,t}\leq \kappa_{y,g} \\
-    &\forall y \in Y, ~g \in G, ~d \in D, ~t \in T_m
+    &\epsilon^{\text{in}}_{t,y,r,g,c}=\gamma^{\text{in}}_{y,g,c} \cdot \tau_{t,y,r,g} \\
+    &\epsilon^{\text{out}}_{t,y,r,g,c}=\gamma^{\text{out}}_{y,g,c} \cdot \tau_{t,y,r,g} \\
+    &\tau_{t,y,r,g}\leq \Delta t \cdot \kappa^{\text{capa}}_{y,r,g} \\
+    &\forall t \in T_m, y \in Y, ~r \in R, ~g \in G, ~c \in C
+
+
+Processes can also have a maximum change in throughput in a single time step, which is modeled by:
+
+.. math::
+
+    &\tau_{t-1,y,r,g} - \kappa^{\text{capa}}_{y,r,g} \cdot \gamma^{\Delta\tau^{max}}_{y,r,g} \cdot \Delta t \leq \tau_{t,y,r,g} \\
+    &\tau_{t-1,y,r,g} + \kappa^{\text{capa}}_{y,r,g} \cdot \gamma^{\Delta\tau^{max}}_{y,r,g} \cdot \Delta t \geq \tau_{t,y,r,g} \\
+    &\forall t \in T_m, y \in Y, ~r \in R, ~g \in G, ~c \in C
+
+
+Some processes also have a minimum input and a different efficieny when operating with partial input which is modeled by:
+
+.. math::
+
+    &\tau_{t,y,r,g} \geq \kappa^{\text{capa}}_{y,r,g} \cdot \gamma^{\text{min}}_{y,r,g}  \cdot \Delta t \\
+    &\epsilon^{\text{in}}_{t,y,r,g,c}=\Delta t \cdot \kappa^{\text{capa}}_{y,r,g} \cdot \frac{\gamma^{\text{min}}_{y,r,g} \cdot (\gamma^{\text{in,min}}_{y,g,c}-\gamma^{\text{in}}_{y,g,c})}{1-\gamma^{\text{min}}_{y,r,g}} + \tau_{t,y,r,g} \cdot \frac{\gamma^{\text{in}}_{y,g,c}-\gamma^{\text{min}}_{y,r,g} \cdot \gamma^{\text{in,min}}_{y,g,c}}{1-\gamma^{\text{min}}_{y,r,g}}\\
+    &\epsilon^{\text{out}}_{t,y,r,g,c}=\Delta t \cdot \kappa^{\text{capa}}_{y,r,g} \cdot \frac{\gamma^{\text{min}}_{y,r,g} \cdot (\gamma^{\text{out,min}}_{y,g,c}-\gamma^{\text{out}}_{y,g,c})}{1-\gamma^{\text{min}}_{y,r,g}} + \tau_{t,y,r,g} \cdot \frac{\gamma^{\text{out}}_{y,g,c}-\gamma^{\text{min}}_{y,r,g} \cdot \gamma^{\text{out,min}}_{y,g,c}}{1-\gamma^{\text{min}}_{y,r,g}}\\
+    &\forall t \in T_m, y \in Y, ~r \in R, ~g \in G, ~c \in C
+
 
 
 GENeSYS-MOD	
