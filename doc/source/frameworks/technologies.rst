@@ -34,6 +34,18 @@ The related equation for this technology is (TO BE UPDATED):
 
 Note - the full load hour is used to generate the profile (the resulting profile here called :math:`\gamma^{in,gen}_{g,t}`) so that it can be scaled according to expected future hours of sun while sticking to the same profile with respect to relative changes.
 
+Urbs
+''''''''
+Uses generic process equations. Only difference is that additionally the input depends on the timeseries of the corresponding commodity.
+
+
+.. math::
+
+    &\epsilon^{\text{in}}_{t,y,r,g,c}=\kappa^{\text{capa}}_{y,r,s}\cdot \gamma^{\text{supim}}_{r,c,y,t}\cdot \Delta t \\
+    &\forall t \in T_m, ~y \in Y, ~r \in R, ~g \in G, ~c \in C^{\text{supIm}}
+
+
+
 Electricity-only units
 **********************
 
