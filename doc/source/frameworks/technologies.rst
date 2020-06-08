@@ -34,6 +34,18 @@ The related equation for this technology is (TO BE UPDATED):
 
 Note - the full load hour is used to generate the profile (the resulting profile here called :math:`\gamma^{in,gen}_{g,t}`) so that it can be scaled according to expected future hours of sun while sticking to the same profile with respect to relative changes.
 
+Urbs
+''''''''
+Uses generic process equations. Only difference is that additionally the input depends on the timeseries of the corresponding commodity.
+
+
+.. math::
+
+    &\epsilon^{\text{in}}_{t,y,r,g,c}=\kappa^{\text{capa}}_{y,r,s}\cdot \gamma^{\text{supim}}_{r,c,y,t}\cdot \Delta t \\
+    &\forall t \in T_m, ~y \in Y, ~r \in R, ~g \in G, ~c \in C^{\text{supIm}}
+
+
+
 Electricity-only units
 **********************
 
@@ -56,6 +68,12 @@ The related equation for this technology is:
 
 	{\vu_{y,a,g,t}}  = \frac{\vg_{y,a,g,t}}{\gi_{g}} \quad \forall y \in Y, a\in A, g\in G, t\in T
 
+
+Urbs
+''''''''
+Uses generic process equations.
+
+
 Heat-only units
 ***************
 
@@ -72,6 +90,12 @@ The related equation for this technology is:
 .. math::
 
 	{\vu_{y,a,g,t}}  = \frac{\vh_{y,a,g,t}}{\gi_{g}} \quad \forall y \in Y, a\in A, g\in G, t\in T
+
+
+Urbs
+''''''''
+Uses generic process equations.
+
 
 CHP units: backpressure
 ***********************
@@ -101,6 +125,12 @@ The related equations for this technology is:
 .. math::
 
 	\vg_{y,a,g,t} = \vh_{y,a,g,t} \cdot \gB_g \quad \forall y \in Y, a\in A, g\in G, t\in T
+
+
+Urbs
+''''''''
+Not modeled in urbs.
+
 
 CHP units: extraction
 *********************
@@ -135,6 +165,12 @@ The related equations for this technology is:
 
 	\vg_{y,a,g,t} \leq \kk_{y,a,g} + v^{capa}_{y,a,g} - \vh_{y,a,g,t} \cdot \gV_g \quad \forall y \in Y, a\in A, g\in G, t\in T
 
+
+Urbs
+''''''''
+Not modeled in urbs.
+
+
 Storages
 ********
 
@@ -163,8 +199,8 @@ urbs
 ''''
 
 .. math::
-    &\epsilon^{\text{con}}_{y,d,r,t}=\epsilon^{\text{con}}_{y,d,r,(t-1)}\cdot (1-d_{y,d,r})^{\Delta t}+e^{\text{in}}_{y,d,r}\cdot \epsilon^{\text{in}}_{y,d,r,t}- \frac{\epsilon^{\text{out}}_{y,d,r,t}}{e^{\text{out}}_{y,d,r}}\\
-    &\forall y\in Y,~d\in D,~r\in R,~t\in T_m
+   &\epsilon^{\text{con}}_{t,y,r,s,c}=\epsilon^{\text{con}}_{(t-1),y,r,s,c}\cdot (1-d_{y,r,s,c})^{\Delta t}+\gamma^{\text{in}}_{y,r,s,c}\cdot \epsilon^{\text{in}}_{t,y,r,s,c}- \frac{\epsilon^{\text{out}}_{t,y,r,s,c}}{\gamma^{\text{out}}_{y,r,s,c}}\\
+    &\forall t\in T_m,~y\in Y,~r\in R,~s\in S,~c\in C
 
 GENeSYS-MOD	
 '''''''''''
@@ -280,18 +316,50 @@ Link
   \\
   & \yrgt, i \in \{1, 2\}
 
-Generic processes
-*****************
 
 urbs
 ''''
 
 .. math::
 
-    &\epsilon^{\text{in}}_{y,g,d,t}=r^{\text{in}}_{y,g,d}\tau_{y,g,t} \\
-    &\epsilon^{\text{out}}_{y,g,d,t}=r^{\text{out}}_{y,g,d}\tau_{y,g,t} \\
-    &\tau_{y,g,t}\leq \kappa_{y,g} \\
-    &\forall y \in Y, ~g \in G, ~d \in D, ~t \in T_m
+   &\epsilon^{\text{trans,out}}_{t,y,r_{in},r_{out},x,c}=\epsilon^{\text{trans,in}}_{t,y,r_{in},r_{out},x,c}\cdot \gamma_{y,r_{in},r_{out},x,c}\\
+    &\forall t\in T_m,~y\in Y,~r_{in}\in R,~r_{out}\in R,~x\in X,~c\in C
+
+
+Generic processes
+*****************
+
+urbs
+''''
+
+Every generic process is described by the following equations:
+
+.. math::
+
+    &\epsilon^{\text{in}}_{t,y,r,g,c}=\gamma^{\text{in}}_{y,g,c} \cdot \tau_{t,y,r,g} \\
+    &\epsilon^{\text{out}}_{t,y,r,g,c}=\gamma^{\text{out}}_{y,g,c} \cdot \tau_{t,y,r,g} \\
+    &\tau_{t,y,r,g}\leq \Delta t \cdot \kappa^{\text{capa}}_{y,r,g} \\
+    &\forall t \in T_m, y \in Y, ~r \in R, ~g \in G, ~c \in C
+
+
+Processes can also have a maximum change in throughput in a single time step, which is modeled by:
+
+.. math::
+
+    &\tau_{t-1,y,r,g} - \kappa^{\text{capa}}_{y,r,g} \cdot \gamma^{\Delta\tau^{max}}_{y,r,g} \cdot \Delta t \leq \tau_{t,y,r,g} \\
+    &\tau_{t-1,y,r,g} + \kappa^{\text{capa}}_{y,r,g} \cdot \gamma^{\Delta\tau^{max}}_{y,r,g} \cdot \Delta t \geq \tau_{t,y,r,g} \\
+    &\forall t \in T_m, y \in Y, ~r \in R, ~g \in G, ~c \in C
+
+
+Some processes also have a minimum input and a different efficieny when operating with partial input which is modeled by:
+
+.. math::
+
+    &\tau_{t,y,r,g} \geq \kappa^{\text{capa}}_{y,r,g} \cdot \gamma^{\text{min}}_{y,r,g}  \cdot \Delta t \\
+    &\epsilon^{\text{in}}_{t,y,r,g,c}=\Delta t \cdot \kappa^{\text{capa}}_{y,r,g} \cdot \frac{\gamma^{\text{min}}_{y,r,g} \cdot (\gamma^{\text{in,min}}_{y,g,c}-\gamma^{\text{in}}_{y,g,c})}{1-\gamma^{\text{min}}_{y,r,g}} + \tau_{t,y,r,g} \cdot \frac{\gamma^{\text{in}}_{y,g,c}-\gamma^{\text{min}}_{y,r,g} \cdot \gamma^{\text{in,min}}_{y,g,c}}{1-\gamma^{\text{min}}_{y,r,g}}\\
+    &\epsilon^{\text{out}}_{t,y,r,g,c}=\Delta t \cdot \kappa^{\text{capa}}_{y,r,g} \cdot \frac{\gamma^{\text{min}}_{y,r,g} \cdot (\gamma^{\text{out,min}}_{y,g,c}-\gamma^{\text{out}}_{y,g,c})}{1-\gamma^{\text{min}}_{y,r,g}} + \tau_{t,y,r,g} \cdot \frac{\gamma^{\text{out}}_{y,g,c}-\gamma^{\text{min}}_{y,r,g} \cdot \gamma^{\text{out,min}}_{y,g,c}}{1-\gamma^{\text{min}}_{y,r,g}}\\
+    &\forall t \in T_m, y \in Y, ~r \in R, ~g \in G, ~c \in C
+
 
 
 GENeSYS-MOD	
