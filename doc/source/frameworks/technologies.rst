@@ -316,6 +316,16 @@ Link
   \\
   & \yrgt, i \in \{1, 2\}
 
+
+urbs
+''''
+
+.. math::
+
+   &\epsilon^{\text{trans,out}}_{t,y,r_{in},r_{out},x,c}=\epsilon^{\text{trans,in}}_{t,y,r_{in},r_{out},x,c}\cdot \gamma_{y,r_{in},r_{out},x,c}\\
+    &\forall t\in T_m,~y\in Y,~r_{in}\in R,~r_{out}\in R,~x\in X,~c\in C
+
+
 Generic processes
 *****************
 
