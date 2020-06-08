@@ -68,6 +68,12 @@ The related equation for this technology is:
 
 	{\vu_{y,a,g,t}}  = \frac{\vg_{y,a,g,t}}{\gi_{g}} \quad \forall y \in Y, a\in A, g\in G, t\in T
 
+
+Urbs
+''''''''
+Uses generic process equations.
+
+
 Heat-only units
 ***************
 
@@ -84,6 +90,12 @@ The related equation for this technology is:
 .. math::
 
 	{\vu_{y,a,g,t}}  = \frac{\vh_{y,a,g,t}}{\gi_{g}} \quad \forall y \in Y, a\in A, g\in G, t\in T
+
+
+Urbs
+''''''''
+Uses generic process equations.
+
 
 CHP units: backpressure
 ***********************
@@ -113,6 +125,12 @@ The related equations for this technology is:
 .. math::
 
 	\vg_{y,a,g,t} = \vh_{y,a,g,t} \cdot \gB_g \quad \forall y \in Y, a\in A, g\in G, t\in T
+
+
+Urbs
+''''''''
+Not modeled in urbs.
+
 
 CHP units: extraction
 *********************
@@ -146,6 +164,12 @@ The related equations for this technology is:
 .. math::
 
 	\vg_{y,a,g,t} \leq \kk_{y,a,g} + v^{capa}_{y,a,g} - \vh_{y,a,g,t} \cdot \gV_g \quad \forall y \in Y, a\in A, g\in G, t\in T
+
+
+Urbs
+''''''''
+Not modeled in urbs.
+
 
 Storages
 ********
