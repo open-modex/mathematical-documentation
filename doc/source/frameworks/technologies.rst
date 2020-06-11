@@ -36,12 +36,12 @@ Note - the full load hour is used to generate the profile (the resulting profile
 
 Urbs
 ''''''''
-Uses generic process equations. Only difference is that additionally the input depends on the timeseries of the corresponding commodity.
+Uses generic process equations. Only difference is that additionally the input depends on the timeseries of the corresponding commodity input/maxinput ratio.
 
 
 .. math::
 
-    &\epsilon^{\text{in}}_{t,y,r,g,c}=\kappa^{\text{capa}}_{y,r,s}\cdot \gamma^{\text{supim}}_{r,c,y,t}\cdot \Delta t \\
+    &\vu_{t,y,r,g,c}=\kk_{y,r,g}\cdot \gamma^{\text{supim}}_{r,c,y,t}\cdot \Delta t \\
     &\forall t \in T_m, ~y \in Y, ~r \in R, ~g \in G, ~c \in C^{\text{supIm}}
 
 
@@ -199,7 +199,7 @@ urbs
 ''''
 
 .. math::
-   &\epsilon^{\text{con}}_{t,y,r,s,c}=\epsilon^{\text{con}}_{(t-1),y,r,s,c}\cdot (1-d_{y,r,s,c})^{\Delta t}+\gamma^{\text{in}}_{y,r,s,c}\cdot \epsilon^{\text{in}}_{t,y,r,s,c}- \frac{\epsilon^{\text{out}}_{t,y,r,s,c}}{\gamma^{\text{out}}_{y,r,s,c}}\\
+   &\vsv_{t,y,r,s,c}=\vsv_{(t-1),y,r,s,c}\cdot (1-\gL_{y,r,s,c})^{\Delta t}+\gi_{y,r,s,c}\cdot \vsl_{t,y,r,s,c}- \frac{\vsu_{t,y,r,s,c}}{\go_{y,r,s,c}}\\
     &\forall t\in T_m,~y\in Y,~r\in R,~s\in S,~c\in C
 
 GENeSYS-MOD	
@@ -322,7 +322,7 @@ urbs
 
 .. math::
 
-   &\epsilon^{\text{trans,out}}_{t,y,r_{in},r_{out},x,c}=\epsilon^{\text{trans,in}}_{t,y,r_{in},r_{out},x,c}\cdot \gamma_{y,r_{in},r_{out},x,c}\\
+   & v^{\text{trans,out}}_{t,y,r_{in},r_{out},x,c}= v^{\text{trans,in}}_{t,y,r_{in},r_{out},x,c}\cdot \gamma^{\text{trans}}_{y,r_{in},r_{out},x,c}\\
     &\forall t\in T_m,~y\in Y,~r_{in}\in R,~r_{out}\in R,~x\in X,~c\in C
 
 
@@ -336,9 +336,9 @@ Every generic process is described by the following equations:
 
 .. math::
 
-    &\epsilon^{\text{in}}_{t,y,r,g,c}=\gamma^{\text{in}}_{y,g,c} \cdot \tau_{t,y,r,g} \\
-    &\epsilon^{\text{out}}_{t,y,r,g,c}=\gamma^{\text{out}}_{y,g,c} \cdot \tau_{t,y,r,g} \\
-    &\tau_{t,y,r,g}\leq \Delta t \cdot \kappa^{\text{capa}}_{y,r,g} \\
+    &\vu_{t,y,r,g,c}=\gi_{y,g,c} \cdot \tau_{t,y,r,g} \\
+    &\vg_{t,y,r,g,c}=\go_{y,g,c} \cdot \tau_{t,y,r,g} \\
+    &\tau_{t,y,r,g}\leq \Delta t \cdot \kk_{y,r,g} \\
     &\forall t \in T_m, y \in Y, ~r \in R, ~g \in G, ~c \in C
 
 
@@ -346,18 +346,18 @@ Processes can also have a maximum change in throughput in a single time step, wh
 
 .. math::
 
-    &\tau_{t-1,y,r,g} - \kappa^{\text{capa}}_{y,r,g} \cdot \gamma^{\Delta\tau^{max}}_{y,r,g} \cdot \Delta t \leq \tau_{t,y,r,g} \\
-    &\tau_{t-1,y,r,g} + \kappa^{\text{capa}}_{y,r,g} \cdot \gamma^{\Delta\tau^{max}}_{y,r,g} \cdot \Delta t \geq \tau_{t,y,r,g} \\
+    &\tau_{t-1,y,r,g} - \kk_{y,r,g} \cdot \gamma^{\Delta\tau^{max}}_{y,r,g} \cdot \Delta t \leq \tau_{t,y,r,g} \\
+    &\tau_{t-1,y,r,g} + \kk_{y,r,g} \cdot \gamma^{\Delta\tau^{max}}_{y,r,g} \cdot \Delta t \geq \tau_{t,y,r,g} \\
     &\forall t \in T_m, y \in Y, ~r \in R, ~g \in G, ~c \in C
 
 
-Some processes also have a minimum input and a different efficieny when operating with partial input which is modeled by:
+Some processes also have a minimum throughput ratio (minimum throughput/maximum throughput) for operation and a different efficieny when operating with less than maximum throughput:
 
 .. math::
 
-    &\tau_{t,y,r,g} \geq \kappa^{\text{capa}}_{y,r,g} \cdot \gamma^{\text{min}}_{y,r,g}  \cdot \Delta t \\
-    &\epsilon^{\text{in}}_{t,y,r,g,c}=\Delta t \cdot \kappa^{\text{capa}}_{y,r,g} \cdot \frac{\gamma^{\text{min}}_{y,r,g} \cdot (\gamma^{\text{in,min}}_{y,g,c}-\gamma^{\text{in}}_{y,g,c})}{1-\gamma^{\text{min}}_{y,r,g}} + \tau_{t,y,r,g} \cdot \frac{\gamma^{\text{in}}_{y,g,c}-\gamma^{\text{min}}_{y,r,g} \cdot \gamma^{\text{in,min}}_{y,g,c}}{1-\gamma^{\text{min}}_{y,r,g}}\\
-    &\epsilon^{\text{out}}_{t,y,r,g,c}=\Delta t \cdot \kappa^{\text{capa}}_{y,r,g} \cdot \frac{\gamma^{\text{min}}_{y,r,g} \cdot (\gamma^{\text{out,min}}_{y,g,c}-\gamma^{\text{out}}_{y,g,c})}{1-\gamma^{\text{min}}_{y,r,g}} + \tau_{t,y,r,g} \cdot \frac{\gamma^{\text{out}}_{y,g,c}-\gamma^{\text{min}}_{y,r,g} \cdot \gamma^{\text{out,min}}_{y,g,c}}{1-\gamma^{\text{min}}_{y,r,g}}\\
+    &\tau_{t,y,r,g} \geq \kk_{y,r,g} \cdot \gamma^{\text{min}}_{y,r,g}  \cdot \Delta t \\
+    &\vu_{t,y,r,g,c}=\Delta t \cdot \kk_{y,r,g} \cdot \frac{\gamma^{\text{min}}_{y,r,g} \cdot (\gamma^{\text{in,gen,min}}_{y,g,c}-\gi_{y,g,c})}{1-\gamma^{\text{min}}_{y,r,g}} + \tau_{t,y,r,g} \cdot \frac{\gi_{y,g,c}-\gamma^{\text{min}}_{y,r,g} \cdot \gamma^{\text{in,gen,min}}_{y,g,c}}{1-\gamma^{\text{min}}_{y,r,g}}\\
+    &\vg_{t,y,r,g,c}=\Delta t \cdot \kk_{y,r,g} \cdot \frac{\gamma^{\text{min}}_{y,r,g} \cdot (\gamma^{\text{out,gen,min}}_{y,g,c}-\go_{y,g,c})}{1-\gamma^{\text{min}}_{y,r,g}} + \tau_{t,y,r,g} \cdot \frac{\go_{y,g,c}-\gamma^{\text{min}}_{y,r,g} \cdot \gamma^{\text{out,gen,min}}_{y,g,c}}{1-\gamma^{\text{min}}_{y,r,g}}\\
     &\forall t \in T_m, y \in Y, ~r \in R, ~g \in G, ~c \in C
 
 
