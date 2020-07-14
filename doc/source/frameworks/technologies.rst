@@ -41,7 +41,7 @@ Uses generic process equations. Only difference is that additionally the input d
 
 .. math::
 
-    &\vu_{t,y,r,g,c}=\kk_{y,r,g}\cdot \gamma^{\text{supim}}_{r,c,y,t}\cdot \Delta t \\
+    &v^{\text{in}}_{t,y,r,g,c}=\kk_{y,r,g}\cdot \gamma^{\text{supim}}_{r,c,y,t}\cdot \Delta t \\
     &\forall t \in T_m, ~y \in Y, ~r \in R, ~g \in G, ~c \in C^{\text{supIm}}
 
 
@@ -336,7 +336,7 @@ Every generic process is described by the following equations:
 
 .. math::
 
-    &\vu_{t,y,r,g,c}=\gi_{y,g,c} \cdot \tau_{t,y,r,g} \\
+    &v^{\text{in}}_{t,y,r,g,c}=\gi_{y,g,c} \cdot \tau_{t,y,r,g} \\
     &\vg_{t,y,r,g,c}=\go_{y,g,c} \cdot \tau_{t,y,r,g} \\
     &\tau_{t,y,r,g}\leq \Delta t \cdot \kk_{y,r,g} \\
     &\forall t \in T_m, y \in Y, ~r \in R, ~g \in G, ~c \in C
@@ -356,7 +356,7 @@ Some processes also have a minimum throughput ratio (minimum throughput/maximum 
 .. math::
 
     &\tau_{t,y,r,g} \geq \kk_{y,r,g} \cdot \gamma^{\text{min}}_{y,r,g}  \cdot \Delta t \\
-    &\vu_{t,y,r,g,c}=\Delta t \cdot \kk_{y,r,g} \cdot \frac{\gamma^{\text{min}}_{y,r,g} \cdot (\gamma^{\text{in,gen,min}}_{y,g,c}-\gi_{y,g,c})}{1-\gamma^{\text{min}}_{y,r,g}} + \tau_{t,y,r,g} \cdot \frac{\gi_{y,g,c}-\gamma^{\text{min}}_{y,r,g} \cdot \gamma^{\text{in,gen,min}}_{y,g,c}}{1-\gamma^{\text{min}}_{y,r,g}}\\
+    &v^{\text{in}}_{t,y,r,g,c}=\Delta t \cdot \kk_{y,r,g} \cdot \frac{\gamma^{\text{min}}_{y,r,g} \cdot (\gamma^{\text{in,gen,min}}_{y,g,c}-\gi_{y,g,c})}{1-\gamma^{\text{min}}_{y,r,g}} + \tau_{t,y,r,g} \cdot \frac{\gi_{y,g,c}-\gamma^{\text{min}}_{y,r,g} \cdot \gamma^{\text{in,gen,min}}_{y,g,c}}{1-\gamma^{\text{min}}_{y,r,g}}\\
     &\vg_{t,y,r,g,c}=\Delta t \cdot \kk_{y,r,g} \cdot \frac{\gamma^{\text{min}}_{y,r,g} \cdot (\gamma^{\text{out,gen,min}}_{y,g,c}-\go_{y,g,c})}{1-\gamma^{\text{min}}_{y,r,g}} + \tau_{t,y,r,g} \cdot \frac{\go_{y,g,c}-\gamma^{\text{min}}_{y,r,g} \cdot \gamma^{\text{out,gen,min}}_{y,g,c}}{1-\gamma^{\text{min}}_{y,r,g}}\\
     &\forall t \in T_m, y \in Y, ~r \in R, ~g \in G, ~c \in C
 

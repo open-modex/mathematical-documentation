@@ -6,27 +6,110 @@ Objective function
 ******************
 The objective function consists of five parts:
 
-    * Investment costs
-    * Fixed costs for operation and maintenance
-    * Variable operation and maintenance costs
-    * Fuel costs
-    * Environment costs like costs for CO_2 emissions
+.. math::
 
+    \pi^\text{obj} = \pi_{\text{inv}} + \pi_{\text{fix}} + \pi_{\text{var}} + \pi_{\text{fuel}} + \pi_{\text{env}}
+
+
+Investment costs
+
+    * consists of investment costs for generation, transmission and storage
+    * investment costs for trans and sto are calculated the same way as for gen,
+      except sto costs are based on newly installed storage capacity **and** power
 
 .. math::
 
-    \pi^\text{obj} = \sum_{y\in Y}\ w_y\cdot(\pi_{\text{inv}} + \pi_{\text{fix}} + \pi_{\text{var}} + \pi_{\text{fuel}} + \pi_{\text{env}})
+    \pi_{\text{inv}}= \pi_{\text{inv,gen}} + \pi_{\text{inv,trans}} + \pi_{\text{inv,sto}}
 
-    \pi_{\text{inv}}=\sum_{g \in G_{\text{exp}}}f_g \pi^{\text{inv, capa}}_g \widehat{\kappa}_g \ \ f=\frac{(1+i)^n\cdot i}{(1+i)^n-1}
-
-    \pi_{\text{fix}}=\sum_{g \in G}\pi^{\text{omf,capa}}_g\kappa^{\text{capa}}_g
-
-    \pi_{\text{var}}=w \Delta t \sum_{t \in T_m\\ g \in G} \pi^{\text{omv}}_{gt}\tau_{g,t}
+    \pi_{\text{inv,gen}} = \sum_{p \in P} {\color{red}{{INVESTFAC}}_{p}} \cdot \pi^{\text{inv, capa}}_p \cdot {\color{red}{{NEWCAPACITY}}_{p}} -  \sum_{p \in P} {\color{red}{{OVRPAYFAC}}_{p}} \cdot \pi^{\text{inv, capa}}_p \cdot {\color{red}{{NEWCAPACITY}}_{p}}
 
 
-    \pi_{\text{fuel}}=w \Delta t \sum_{t \in T_m\\ f \in F} \pi^{\text{fuel}}_{f}v^{\text{gen}}_{g,t}
+Fixed costs for operation and maintenance
 
-    \pi_{\text{env}}=-w \Delta t \sum_{t \in T_m\\ e \in E} \pi^{\text{emi}}_{e}\text{CB}(e,t)
+    * consists of fixed costs for generation, transmission and storage
+    * fixed costs for trans and sto are calculated the same way as for gen,
+      except again sto costs are based on installed storage capacity **and** power
+
+.. math::
+
+    \pi_{\text{fix}}= \pi_{\text{fix,gen}} + \pi_{\text{fix,trans}} + \pi_{\text{fix,sto}}
+
+    \pi_{\text{fix,gen}}=\sum_{p \in P} {\color{red}{{COSTFAC}}_{p}} \cdot \pi^{\text{omf,capa}}_p \cdot \kappa^{\text{capa}}_p
+
+
+Variable operation and maintenance costs
+
+    * consists of fixed costs for generation, transmission and storage
+    * fixed costs for trans and sto are calculated the same way as for gen,
+      except trans costs are only based on transmission input and sto costs are based on energy content, inflow and outflow
+
+.. math::
+
+    \pi_{\text{var}}= \pi_{\text{var,gen}} + \pi_{\text{var,trans}} + \pi_{\text{var,sto}}
+
+    \pi_{\text{var,gen}}=\sum_{t \in T_m\\ p \in P} \pi^{\text{omv,gen}}_{p} \cdot {\color{red}{Weight}} \cdot {\color{red}{{COSTFAC}}_{p}} \cdot \tau_{t,p}
+
+
+Fuel costs
+
+.. math::
+
+    \pi_{\text{fuel}}=\sum_{t \in T_m\\ f \in F} \pi^{\text{fuel}}_{f} \cdot {\color{red}{Weight}} \cdot {\color{red}{{COSTFAC}}_{f}} \cdot v^{\text{fuse}}_{t,f}
+
+
+Environment costs like costs for CO_2 emissions
+
+.. math::
+
+    \pi_{\text{env}}= \sum_{t \in T_m\\ e \in E} \pi^{\text{emi}}_{e} \cdot {\color{red}{Weight}} \cdot {\color{red}{{COSTFAC}}_{e}} \cdot -{\color{red}{{CB(e,t)}}}
+
+
+
+Marked in red: things that are not in the terminology. All of these are explained in the following table:
+
+.. list-table::
+   :widths: 20 20 20 40
+   :header-rows: 1
+
+
+   * - Name
+     - Domains
+     - Type
+     - Description
+   * - P
+     - -
+     - Set
+     - Tuple including all sets describing processes (year, site, process)
+   * - F, E
+     - -
+     - Set
+     - Tuples inluding all sets describing commodities (year, site, com, com type), where e is the subset of stock and f the subset of environmental commodities
+   * - INVESTFAC
+     - p
+     - Parameter
+     - Scales the investment costs taking into account the depreciation duration, interest rate and discount rate
+   * - OVRPAYFAC
+     - p
+     - Parameter
+     - Similar to INVESTFAC but calculates the investment cost payments that fall beyond the optimization period, thus should not be considered
+   * - NEWCAPACITY
+     - p
+     - Variable
+     - Amount of new capacity of a technology
+   * - COSTFAC
+     - p, e or f
+     - Parameter
+     - Includes discount factor and relative weight of a year for intertemporal model, for single year equals one
+   * - Weight
+     - -
+     - Parameter
+     - Scales the costs to a full year
+   * - CB(e,t)
+     - -
+     - Function
+     - Balance equation returning the amount of environmental commodity created
+
+
 
 
 Constraints
