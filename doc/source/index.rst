@@ -21,6 +21,6 @@ For a basic introduction into the syntax of rst, check out the `sphinx help <htt
    frameworks/oemof
    frameworks/urbs
    frameworks/technologies
-
+   frameworks/obj_function_comparison
 
 * :ref:`search`
