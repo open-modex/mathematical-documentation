@@ -24,6 +24,15 @@ Investment costs
     \pi_{\text{inv,gen}} = \sum_{p \in P} {\color{red}{{INVESTFAC}}_{p}} \cdot \pi^{\text{inv, capa}}_p \cdot {\color{red}{{NEWCAPACITY}}_{p}} -  \sum_{p \in P} {\color{red}{{OVRPAYFAC}}_{p}} \cdot \pi^{\text{inv, capa}}_p \cdot {\color{red}{{NEWCAPACITY}}_{p}}
 
 
+Graphical representation and example of the calculation of total costs for an investment
+
+.. figure:: images/urbs_costfac.png
+   :width: 70 %
+
+.. figure:: images/urbs_costfac2.png
+   :width: 70 %
+
+
 Fixed costs for operation and maintenance
 
     * consists of fixed costs for generation, transmission and storage
