@@ -45,6 +45,16 @@ Uses generic process equations. Only difference is that additionally the input d
     &\forall t \in T_m, ~y \in Y, ~r \in R, ~g \in G, ~c \in C^{\text{supIm}}
 
 
+GENESYS-2
+''''''''''
+Capacity factor (CF) ist used to calculate generation of VRE-units. \Delta t always equals one hour.
+
+.. math::
+
+	{v^{gen}_{y,r,g,t}}  = v^{capa}_{y,r,g} \cdot CF^{in,gen}_{y,r,g,t} \cdot \Delta t \quad \forall y \in Y, r\in R, g\in G, t\in T
+    
+
+
 
 Electricity-only units
 **********************
@@ -74,6 +84,15 @@ Urbs
 Uses generic process equations.
 
 
+GENESYS-2
+''''''''''
+Generation is calculated by using overall plant efficiencies, that are time-independent. \Delta t always equals one hour.
+
+.. math::
+
+	{v^{gen}_{y,r,g,t}}  = v^{fuse}_{y,r,g,t} \cdot \gamma^{total,gen}_{g} \cdot \Delta t \quad \forall y \in Y, r\in R, g\in G, t\in T
+
+
 Heat-only units
 ***************
 
@@ -95,6 +114,11 @@ The related equation for this technology is:
 Urbs
 ''''''''
 Uses generic process equations.
+
+
+GENESYS-2
+''''''''''
+Currently not modelled with this framework.
 
 
 CHP units: backpressure
@@ -130,6 +154,11 @@ The related equations for this technology is:
 Urbs
 ''''''''
 Not modeled in urbs.
+
+
+GENESYS-2
+''''''''''
+Currently not modelled with this framework.
 
 
 CHP units: extraction
@@ -169,6 +198,11 @@ The related equations for this technology is:
 Urbs
 ''''''''
 Not modeled in urbs.
+
+
+GENESYS-2
+''''''''''
+Currently not modelled with this framework.
 
 
 Storages
@@ -227,6 +261,36 @@ oemof.tabular
   & t_0, t_{\infty} \in T
   \\
   & \forall y \in Y, r\in R, g\in G, t\in T\setminus\{t_0\}
+  
+  
+
+GENESYS-2
+''''''''''
+Generally, storages in GENESYS-2 always require a storage unit connected to a charger/discharger unit. Charger and discharger can either be one unit called 'Bicharger' or can be modelled seperately with diffrent efficiencies.
+
+initial storage level
+----------------------
+.. math::
+	{v^{sto,vol}_{y,r,g,t=0}}  = 0 \quad \forall y \in Y, r\in R, g\in G, t\in T \\
+	
+charge/discharge processes
+--------------------------
+.. math::
+	{v^{gen,load}_{y,r,g,t}}  = v^{sto,charge}_{y,r,g,t} \cdot \gamma^{in,gen}_{y,r,g,t} \cdot \Delta t \quad \forall y \in Y, r\in R, g\in G, t\in T \\
+	{v^{gen,unload}_{y,r,g,t}}  = v^{sto,discharge}_{y,r,g,t} \cdot \gamma^{out,gen}_{y,r,g,t} \cdot \Delta t \quad \forall y \in Y, r\in R, g\in G, t\in T \\
+	Condition: v^{gen,load}_{y,r,g,t} >= 0 + v^{gen,unload}_{y,r,g,t} > 0 = 1
+
+storage level
+--------------------------
+.. math::
+	{v^{sto,vol}_{y,r,g,t}}  = v^{sto,vol}_{y,r,g,t-1} + v^{gen,load}_{y,r,g,t} \cdot \gamma^{total,gen,sto}_{y,r,g,t} - v^{gen,unload}_{y,r,g,t} \quad \forall y \in Y, r\in R, g\in G, t\in T \\
+
+total losses
+--------------------------
+.. math::
+	{\gamma^{loss,con}_{y,r,g,t}}  = v^{sto,charge}_{y,r,g,t} \cdot (1 - \gamma^{in,gen}_{y,r,g,t}) + v^{sto,discharge}_{y,r,g,t} \cdot (1 - \gamma^{out,gen}_{y,r,g,t}) + v^{gen,load}_{y,r,g,t} \cdot (1 - \gamma^{total,gen,sto}_{y,r,g,t})  \quad \forall y \in Y, r\in R, g\in G, t\in T \\
+ 
+ 
 
 Generation
 **********
@@ -320,6 +384,15 @@ Link
 urbs
 ''''
 
+.. math::
+
+   & v^{\text{trans,out}}_{t,y,r_{in},r_{out},x,c}= v^{\text{trans,in}}_{t,y,r_{in},r_{out},x,c}\cdot \gamma^{\text{trans}}_{y,r_{in},r_{out},x,c}\\
+    &\forall t\in T_m,~y\in Y,~r_{in}\in R,~r_{out}\in R,~x\in X,~c\in C
+	
+
+GENESYS-2
+''''
+	
 .. math::
 
    & v^{\text{trans,out}}_{t,y,r_{in},r_{out},x,c}= v^{\text{trans,in}}_{t,y,r_{in},r_{out},x,c}\cdot \gamma^{\text{trans}}_{y,r_{in},r_{out},x,c}\\
