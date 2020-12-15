@@ -33,24 +33,24 @@ The storage balance is given by:
 
 .. math::
 
-  E(t) = \\
-  E(t-1) \cdot (1 - \beta(t))^{ \Delta t(t)/(t_u)} \\
-  - \gamma(t)\cdot (E_{exist} + E_{invest}) \cdot {\Delta t(t) /(t_u)}\\
-  - \delta(t) \cdot {\Delta t(t) /(t_u)}\\
-  - \frac{v^{out}(t)}{\gamma_{out}(t)} \cdot \Delta t(t)\\
-  + v_{in}(t) \cdot \gamma_{in}(t) \cdot \Delta t(t)
+  \epsilon(t) = \\
+  \epsilon(t-1) \cdot (1 - \gamma^{frac}(t))^{ \Delta t(t)/(t_u)} \\
+  - \gamma^{fix}(t)\cdot (\epsilon_{exist} + \epsilon_{invest}) \cdot {\Delta t(t) /(t_u)}\\
+  - \gamma^{abs}(t) \cdot {\Delta t(t) /(t_u)}\\
+  - \frac{\epsilon^{out}(t)}{\gamma_{out}(t)} \cdot \Delta t(t)\\
+  + \epsilon_{in}(t) \cdot \gamma_{in}(t) \cdot \Delta t(t)
 
 =========================== =======================
 symbol                      explanation
 =========================== =======================
-:math:`E(t)`                energy currently stored
-:math:`E_{nom}`             nominal capacity of the energy storage
+:math:`\epsilon(t)`         energy currently stored
+:math:`\epsilon_{nom}`      nominal capacity of the energy storage
 :math:`c(-1)`               state before initial time step
 :math:`c_{min}(t)`          minimum allowed storage
 :math:`c_{max}(t)`          maximum allowed storage
-:math:`\beta(t)`            fraction of lost energy as share of :math:`E(t)` per time unit
-:math:`\gamma(t)`           fixed loss of energy  relative to :math:`E_{nom}` per time unit
-:math:`\delta(t)`           absolute fixed loss of energy per time unit
+:math:`\gamma^{frac}(t)`            fraction of lost energy as share of :math:`E(t)` per time unit
+:math:`\gamma^{fix}(t)`     fixed loss of energy  relative to :math:`E_{nom}` per time unit
+:math:`\gamma^{abs}(t)`           absolute fixed loss of energy per time unit
 :math:`\dot{E}_i(t)`        energy flowing in
 :math:`\dot{E}_o(t)`        energy flowing out
 :math:`\gamma_in(t)`        conversion factor(i.e. efficiency) when storing energy
@@ -58,54 +58,54 @@ symbol                      explanation
                             (i.e. efficiency)
                             taking stored energy
 :math:`\Delta t(t)`          duration of time step
-:math:`t_u`                 time unit of :math:`\beta(t), `\gamma(t), \delta(t)` and timeincrement :math:`\tau(t)`
+:math:`t_u`                 time unit of :math:`\gamma^{frac}, `\gamma^{fix}(t), \gamma^{abs}(t)` and timeincrement :math:`\tau(t)`
 =========================== =======================
 
 
 Maximum invement is bounded by lower and upper bound set:
 
 .. math::
-      E_{invest, min} \le E_{invest} \le E_{invest, max}
+      \epsilon_{invest, min} \le E_{invest} \le E_{invest, max}
 
 The following constraints are created depending on the attributes
 
 If an initialstorage level is given:
 
-.. math:: E(-1) \le E_{invest} + E_{exist}
+.. math:: \epsilon(-1) \le \epsilon_{invest} + \epsilon_{exist}
 
 if not:
 
-.. math:: E(-1) = (E_{invest} + E_{exist}) \cdot c(-1)
+.. math:: \epsilon(-1) = (\epsilon_{invest} + \epsilon_{exist}) \cdot c(-1)
 
 Possible coupling of first and last timestep
 
-.. math:: E(-1) = E(t_{last})
+.. math:: \epsilon(-1) = \epsilon(t_{last})
 
 Possible to set C-rate of input and storage content by connecting the invest
 variables of the storage and the input flow:
 
 .. math::
-        P_{i,invest} + P_{i,exist} =
-        (E_{invest} + E_{exist}) \cdot r_{cap,in}
+        \epsilon_{in,invest} + \epsilon_{in,exist} =
+        (\epsilon_{invest} + \epsilon_{exist}) \cdot r_{cap,in}
 
 and/or for generation of storage
 
 .. math::
-    P_{o,invest} + P_{o,exist} =
-    (E_{invest} + E_{exist}) \cdot r_{cap,out}
+    \epsilon_{out,invest} + \epsilon_{out,exist} =
+    (\epsilon_{invest} + \epsilon_{exist}) \cdot r_{cap,out}
 
 If wanted connect the invest variables of the input and the output:
 
 .. math::
-    P_{i,invest} + P_{i,exist} =
-    (P_{o,invest} + P_{o,exist}) \cdot r_{in,out}
+    \epsilon_{in,invest} + \epsilon_{in,exist} =
+    (\epsilon_{out,invest} + \epsilon_{out,exist}) \cdot r_{in,out}
 
 Upper and lower storage level is given by:
 
 .. math::
-    E(t) \leq (E_{exist} + E_{invest}) \cdot c_{max}(t)
+    \epsilon(t) \leq (\epsilon_{exist} + \epsilon_{invest}) \cdot c_{max}(t)
 
-.. math:: E(t) \geq (E_{exist} + E_{invest}) \cdot c_{min}(t)
+.. math:: \epsilon(t) \geq (\epsilon_{exist} + \epsilon_{invest}) \cdot c_{min}(t)
 
 
 
