@@ -226,28 +226,24 @@ urbs
 ^^^^^
 1. Change of storage content
 
-In a storage the energy content :math:`\epsilon^{\text{con}}_{yvst}` has to be calculated. This is achieved by simply adding all inputs to and subtracting all outputs from the storage content at the previous time step :math:`\epsilon^{\text{con}}_{yvs(t-1)}`:
+In a storage, the energy content :math:`\epsilon^{\text{con}}_{yvst}` has to be calculated. This is achieved by simply adding all inputs to and subtracting all outputs from the storage content at the previous time step :math:`\epsilon^{\text{con}}_{yvs(t-1)}`:
 
 .. math::
-   &\epsilon^{\text{con}}_{yvst}=\epsilon^{\text{con}}_{yvs(t-1)}\cdot
-   (1-d_{yvs})^{\Delta t}+e^{\text{in}}_{yvs}\cdot \epsilon^{\text{in}}_{yvst}-
-   \frac{\epsilon^{\text{out}}_{yvst}}{e^{\text{out}}_{yvs}}.
+   \epsilon^{\text{con}}_{yvst} = \epsilon^{\text{con}}_{yvs(t-1)} \cdot (1 - d_{yvs})^{\Delta t} + e^{\text{in}}_{yvs} \cdot \epsilon^{\text{in}}_{yvst} - \frac{\epsilon^{\text{out}}_{yvst}}{e^{\text{out}}_{yvs}}
 
 Here, :math:`e^{\text{in,out}}_{yvs}` are the efficiencies for charging and discharging, respectively, and :math:`d_{yvs}` is the hourly self discharge rate.
 
 2. Capacity Limitations
 
-Similar to processes and transmission lines, inputs and outputs are limited by
-the power capacity of the storage:
+Similar to processes and transmission lines, inputs and outputs are limited by the power capacity of the storage:
 
 .. math::
-   &\epsilon^{\text{in,out}}_{yvst}\leq\Delta t \cdot \kappa^{\text{p}}_{yvs}.
+   \epsilon^{\text{in,out}}_{yvst} \leq \Delta t \cdot \kappa^{\text{p}}_{yvs}
 
-Additionally, the storage content is limited by the total storage energy
-capacity:
+Additionally, the storage content is limited by the total storage energy capacity:
 
 .. math::
-   &\epsilon^{\text{con}}_{yvst}\leq\kappa^{\text{c}}_{yvs}.
+  \epsilon^{\text{con}}_{yvst}\leq\kappa^{\text{c}}_{yvs}
 
 3. Cyclicity Rule
 
@@ -256,17 +252,16 @@ storage over the model horizon, the initial and final storage content are
 linked via:
 
 .. math::
-    &\epsilon_{yvs(t_1)}^\text{con} \leq \epsilon_{yvst_N}^\text{con},
+  \epsilon_{yvs(t_1)}^\text{con} \leq \epsilon_{yvst_N}^\text{con}
 
-where :math:`t_{1,N}` are the initial and final modeled timesteps,
-respectively.
+where :math:`t_{1,N}` are the initial and final modeled timesteps, respectively.
 
 4. Fixed initial State of Charge (SoC) Rule
 
 It is possible for the user to fix the initial storage content via:
 
 .. math::
-    &\epsilon_{yvs(t_1)}^\text{con} = \kappa_{yvs}^\text{c} I_{yvs},
+   \epsilon_{yvs(t_1)}^\text{con} = \kappa_{yvs}^\text{c} I_{yvs},
 
 where :math:`I_{yvs}` is the fraction of the total storage capacity that is
 filled at the beginning of the modeling period.
@@ -282,7 +277,7 @@ column "ep-ratio" in the input file, and when this value is not given, the
 power and energy capacities can be sized independently
 
 .. math::
-    &\kappa_{yvs}^c = \kappa_{yvs}^p k_{yvs}^\text{E/P}.
+   \kappa_{yvs}^c = \kappa_{yvs}^p k_{yvs}^\text{E/P}.
 
 Balmorel
 ^^^^^^^^^
@@ -343,7 +338,7 @@ GENeSYS-MOD
 * Fixed enery to power ratio
 * No time dependent losses (self-discharge)
 * Initial state of charge is assumed to be zero
-* :math:`v^{\text{sto,vol}}_{g,r,t,y} = v^{\text{sto,vol}}_{g,r,t-1,y} + v^{\text{sto,load}}_{g,r,t-1,y}\cdot \gamma^{\text{in}}_{g,y} - \frac{v^{\text{sto,unload}}_{g,r,t-1,y}}{\gamma^{\text{in}}_g,y}}`
+* :math:`v^{\text{sto,vol}}_{g,r,t,y} = v^{\text{sto,vol}}_{g,r,t-1,y} + v^{\text{sto,load}}_{g,r,t-1,y}\cdot \gamma^{\text{in}}_{g,y} - \frac{v^{\text{sto,unload}}_{g,r,t-1,y}}{\gamma^{\text{in}}_g,y}`
 
 oemof
 ^^^^^^
@@ -382,8 +377,8 @@ The throughput :math:`\tau_{pt}` of a process is limited by its installed
 capacity and the specified minimal operational state.
 
 .. math::
-   &\tau_{pt}\leq \Delta t  \kappa_{p}\\
-   &\tau_{pt}\geq \Delta t  \underline{P}_{p}\kappa_{p}\\
+   \tau_{pt}\leq \Delta t  \kappa_{p}
+   \\\tau_{pt}\geq \Delta t  \underline{P}_{p}\kappa_{p}\\
 
 where :math:`\underline{P}_{p}` is the normalized, minimal operational state of
 the process.
@@ -394,7 +389,7 @@ For input commodity of type SupIm, or whenever a certain operation time series o
 a given process is desired
 
 .. math::
-   &\epsilon^{\text{in}}_{cpt}= \Delta t s_{ct}\kappa_{p}.
+   \epsilon^{\text{in}}_{cpt}= \Delta t s_{ct}\kappa_{p}.
 
 Here, :math:`s_{ct}` is the time series that governs the exact operation of
 process :math:`p` i.e. the capacity factor, leaving only its capacity :math:`\kappa_{p}` as a free
@@ -405,7 +400,7 @@ variable.
 The switching speed of a process can be limited:
 
 .. math::
-   &|\tau_{pt}-\tau_{p(t-1)}|\leq \Delta t\overline{PG}_p\kappa_{p},
+   \tau_{pt}-\tau_{p(t-1)}|\leq \Delta t\overline{PG}_p\kappa_{p},
 
 where :math:`\overline{PG}_p` the normalized, maximal gradient of the
 operational state in full capacity per timestep.
@@ -417,9 +412,8 @@ series, which changes the output ratios and thus the efficiency of a given
 process in each given timestep. 
 
 .. math::
-   &\epsilon^{\text{out}}_{ypct}=r^{\text{out}}_{ypc}f^{\text{out}}_{ypt}
-   \tau_{ypct}
-   .
+   \epsilon^{\text{out}}_{ypct}=r^{\text{out}}_{ypc}f^{\text{out}}_{ypt} \tau_{ypct}
+   
 
 Here, :math:`f^{\text{out}}_{pt}` represents the normalized time series of the
 varying output ratio.
@@ -429,12 +423,7 @@ varying output ratio.
 For a process with part load behavior the equation for the time variable efficiency case takes the form:
 
 .. math::
-   &\epsilon^{\text{out}}_{ypct}=\Delta t\cdot f^{\text{out}}_{ypt}\cdot
-   \left(\frac{\underline{r}^{\text{out}}_{ypc}-r^{\text{out}}_{ypc}}
-   {1-\underline{P}_{yp}}\cdot \underline{P}_{yp}\cdot \kappa_{yp}+
-   \frac{r^{\text{out}}_{ypc}-
-   \underline{P}_{yp}\underline{r}^{\text{out}}_{ypc}}
-   {1-\underline{P}_{yp}}\cdot \tau_{ypt}\right).
+   \epsilon^{\text{out}}_{ypct} = \Delta t \cdot f^{\text{out}}_{ypt} \cdot \left(\frac{\underline{r}^{\text{out}}_{ypc}-r^{\text{out}}_{ypc}} {1-\underline{P}_{yp}}\cdot \underline{P}_{yp}\cdot \kappa_{yp} + \frac{r^{\text{out}}_{ypc}- \underline{P}_{yp}\underline{r}^{\text{out}}_{ypc}} {1-\underline{P}_{yp}}\cdot \tau_{ypt}\right)
 
 Balmorel
 ^^^^^^^^^
@@ -514,7 +503,7 @@ GENeSYS-MOD
 oemof
 ^^^^^^
 * Dispatchable: :math:`0 \leq v^{\text{gen}}_{y,r,g,t} \leq \kappa^{\text{capa}}_{r,g}`
-* Conversion: :math:`v^{\text{fuse}}_{y,r,g,t} = \frac{1}{\gamma^{\text{out,gen}_{r,g}} \cdot v^{\text{fuse}}_{y,r,g,t}`
+* Conversion: :math:`v^{\text{fuse}}_{y,r,g,t} = \frac{1}{\gamma^{\text{out,gen}}_{r,g}} \cdot v^{\text{fuse}}_{y,r,g,t}`
 * Volatile: :math:`v^{\text{gen}}_{y,r,g,t} = \kappa^{\text{capa}}_{r,g} \cdot \gamma^{\text{capa}}_{y,r,g,t}`
 * It is possible to include ramping constraints and part-load behaviour.
 
@@ -543,7 +532,7 @@ All cost parameters are on an yearly basis.
 
 oemof
 ^^^^^^
-Imports/Exports are modelled with hourly variable prices. It is also possible to set restrictions on the import/exports 
+Imports/Exports are modelled with hourly variable prices. It is also possible to set restrictions on the import/exports.
 
 Scenario Variation I
 #####################
@@ -559,9 +548,7 @@ urbs
 A discount rate :math:`(j)` is used for the time value of money. Fixed, variable, fuel and environmental costs at each support year are repeatedly incurred until the next support year (which is after :math:`k` years), while being discounted by the factor :math:`(1-j)` each year in between: 
 
 .. math::
-   D_m&=\sum_{l=m}^{m+k-1}(1+j)^{-l}=(1+j)^{-m}\sum_{l=0}^{k-1}(1+j)^{-l}=
-   (1+j)^{-m}\frac{1-(1+j)^{-k}}{1-(1+j)^{-1}}=\\\\
-   &=(1+j)^{1-m}\frac{1-(1+j)^{-k}}{j}.
+   D_m&=\sum_{l=m}^{m+k-1}(1+j)^{-l}=(1+j)^{-m}\sum_{l=0}^{k-1}(1+j)^{-l}=(1+j)^{-m}\frac{1-(1+j)^{-k}}{1-(1+j)^{-1}}=(1+j)^{1-m}\frac{1-(1+j)^{-k}}{j}
 
 This factor is then used to calculate the costs associated with the support year :math:`m` as follows (example given for variable costs, but also holds for fixed, fuel and environmental costs): 
 
@@ -573,8 +560,7 @@ In contrary to the former mentioned type of costs, the investment costs have to 
 .. math::
    C^{\text{total}}_{\text{m}}&=D_{m}\cdot f \cdot C =
    (1+j)^{1-m}\frac{1-(1+j)^{-k}}{j} \cdot \frac{(1+i)^n\cdot i}{(1+i)^n-1}
-   \cdot C=\\\\
-   &=\underbrace{(1+j)^{1-m}\cdot \frac{i}{j}\cdot
+   \cdot C\underbrace{(1+j)^{1-m}\cdot \frac{i}{j}\cdot
    \left(\frac{1+i}{1+j}\right)^n\cdot
    \frac{(1+j)^n-(1+j)^{n-k}}{(1+i)^n-1}}_{=:I_{\text{m}}}\cdot C
 
@@ -612,18 +598,14 @@ Urbs uses a 'single problem approach'. The model has the perfect foresight of ca
 Sets that determine for process :math:`p`, that is built in year :math:`y_{i}`, whether it is operational in later year :math:`y_{j}`: :math:`O_{\text{inst}}`: for the first support year of the model, :math:`O` for the rest of the support years)
 
 .. math::
-   O&:=\{(p,y_i,y_j)|p\in P,~\{y_i,y_j\}\in Y,~y_i\leq y_j,~ y_i +
-   L_p \geq\ y_{j+1}\}\\\\
-   O_{\text{inst}}&:=\{(p, y_j)|p\in P_0,~y\in Y,~y_0+T_p\geq y_{j+1}\},
+   O:=\{(p,y_i,y_j)|p\in P,~\{y_i,y_j\}\in Y,~y_i\leq y_j,~ y_i + L_p \geq\ y_{j+1}\}\\\\
+   O_{\text{inst}}:=\{(p, y_j)|p\in P_0,~y\in Y,~y_0+T_p\geq y_{j+1}\}
 
 Using these sets, the available capacities are determined at each support year:
 
 .. math::
-   \kappa_{yp}&=\sum_{y^{\prime}\in Y\\(p,y^{\prime},y)\in O}
-   \widehat{\kappa}_{y^{\prime}p} + K_{p}
-   ~,~~\text{if}~(p,y)\in O_{\text{inst}}\\\\
-   \kappa_{yp}&=\sum_{y^{\prime}\in Y\\(p,y^{\prime},y)\in O}
-   \widehat{\kappa}_{y^{\prime}p}
+   \kappa_{yp} = \sum_{y^{\prime}\in Y\\(p,y^{\prime},y)\in O} \widehat{\kappa}_{y^{\prime}p} + K_{p} ~,~~\text{if}~(p,y)\in O_{\text{inst}}\\\\
+   \kappa_{yp} = \sum_{y^{\prime}\in Y\\(p,y^{\prime},y)\in O} \widehat{\kappa}_{y^{\prime}p}
 
 Balmorel
 ^^^^^^^^^
@@ -654,8 +636,7 @@ urbs
 While in an intertemporal model all the yearly commodity costraints remain valid, one addition is possible concerning :math:`CO_{2}` emissions. Here, a budget can be given, which is valid over the entire modelling horizon:
 
 .. math::
-   -w\sum_{y\in Y\\t\in T_{m}}\text{CB}(y,\text{CO}_2,t)\leq
-   \overline{\overline{L}}_{\text{CO}_2}
+   -w\sum_{y\in Y\\t\in T_{m}}\text{CB}(y,\text{CO}_2,t)\leq \overline{\overline{L}}_{\text{CO}_2}
 
 where :math:`w` are the weights of a given support year (number of years until the next support year, and a user-input value for the last support year in the model). Currently, this is hard-coded for :math:`CO_{2}` only.  
 
@@ -667,7 +648,7 @@ The limit on annual :math:`CO_{2}`-emission by year and country in kg/MW is give
 .. math::
  \sum_{a \in c, t \in y}\lambda_{\text{g}}^{\text{co2}} \cdot v^{\text{fuse}}_{\text{y,a,g,t}} \leq \Lambda_{\text{y,c}}^{\text{CO2}}
 
-where :math:`\lambda_{\text{g}}^{{\text{co2}}` is the emission per production from :math:`g` and :math:`\Lambda_{\text{y,c}}^{\text{CO2}}` is the country and year specific limitation. 
+where :math:`\lambda_{\text{g}}^{\text{co2}}` is the emission per production from :math:`g` and :math:`\Lambda_{\text{y,c}}^{\text{CO2}}` is the country and year specific limitation. 
 
 The limit on annual :math:`CO_{2}`-emission by year for aggregated countries in kg/MW is given by:
 
@@ -687,7 +668,7 @@ Weighted annual emissions and linear interpolation between support years.
 
 oemof
 ^^^^^^
-Heuristic approach, no optimisation approach when manually allocating budget to years
+Heuristic approach, no optimisation approach when manually allocating budget to years.
 
 Scenario Variation II
 #####################
@@ -703,7 +684,7 @@ In urbs, the :math:`CO_{2}` limit is set in a sector-neutral way. Sector-specifi
 
 Balmorel
 ^^^^^^^^^
-The emmission limits are country and year specific and not specified per sector. 
+The emission limits are country and year specific and not specified per sector. 
 
 GENESYS-2
 ^^^^^^^^^^
@@ -732,16 +713,12 @@ The equations related to CHP backpressure:
 1. Fuel usage
 
 .. math::
-
-	& {\vu_{y,a,g,t}}  = \frac{\vg_{y,a,g,t} + \gV_g \cdot \vh_{y,a,g,t}}{\gi_{g}}
-	
-	& \forall y \in Y, a\in A, g\in G, t\in T
+ \upsilon^{\text{fuse}}_{y,a,g,t} = \frac{\upsilon^{\text{gen}}_{y,a,g,t} + \gamma^{\text{CV}}_{g} \cdot \upsilon^{\text{gen,heat}}_{y,a,g,t}}{\gamma^{\text{in,gen}}_{g}}
 
 2. Limited by Cb-line:
 
 .. math::
-
-	\vg_{y,a,g,t} = \vh_{y,a,g,t} \cdot \gB_g \quad \forall y \in Y, a\in A, g\in G, t\in T
+ \upsilon^{\text{gen}}_{y,a,g,t} = \upsilon^{\text{gen,heat}}_{y,a,g,t} \cdot \gamma^{\text{CB}}_{g}
 
 The equations related to CHP extraction:
 
@@ -749,21 +726,19 @@ The equations related to CHP extraction:
 
 .. math::
 
-	& {\vu_{y,a,g,t}}  = \frac{\vg_{y,a,g,t} + \gV_g \cdot \vh_{y,a,g,t}}{\gi_{g}}
-	
-	& \forall y \in Y, a\in A, g\in G, t\in T
+	\upsilon^{\text{fuse}}_{y,a,g,t} = \frac{\upsilon^{\text{gen}}_{y,a,g,t} + \gamma^{\text{CV}}_{g} \cdot \upsilon^{\text{gen,heat}}_{y,a,g,t}}{\gamma^{\text{in,gen}}_{g}}
 
 2. Limited by Cb-line:
 
 .. math::
 
-	\vg_{y,a,g,t} \geq \vh_{y,a,g,t} \cdot \gB_g \quad \forall y \in Y, a\in A, g\in G, t\in T
+	\upsilon^{\text{gen}}_{y,a,g,t} \geq \upsilon^{\text{gen,heat}}_{y,a,g,t} \cdot \gamma^{\text{CB}}_{g}
 
 3. Limited by Cv-line:
 
 .. math::
 
-	\vg_{y,a,g,t} \leq \kk_{y,a,g} + v^{capa}_{y,a,g} - \vh_{y,a,g,t} \cdot \gV_g \quad \forall y \in Y, a\in A, g\in G, t\in T
+	\upsilon^{\text{gen}}_{y,a,g,t} \leq \kappa^{\text{capa}}_{y,a,g} + \upsilon^{\text{capa}}_{y,a,g} - \upsilon^{\text{gen,heat}}_{y,a,g,t} \cdot \gamma^{\text{CB}}_{g}
 
 
 GENESYS-2
@@ -772,7 +747,7 @@ Modelling of multiple input- multiple output technologies is not possible.
 
 GENeSYS-MOD
 ^^^^^^^^^^^^
-Multiple input- multiple output technologies are modelled in the same way as regular processes. Modlelling the dependency between thermal and electrical efficiency is not possible. Constant efficiency and thermal/electrical rate can be modelled. CHP have predefined power to heat ratios.
+Multiple input- multiple output technologies are modelled in the same way as regular processes. Modelling the dependency between thermal and electrical efficiency is not possible. Constant efficiency and thermal/electrical rate can be modelled. CHP have predefined power to heat ratios.
 
 oemof
 ^^^^^^
@@ -780,12 +755,12 @@ The equations related to CHP Extraction Turbine are given below:
 
 .. math::
 
-  v^{gen, el} \leq \kappa^{capa} \\
+  v^{gen, el} \leq \kappa^{capa} \\\\
   \kappa^{capa} \leq \overline{\kappa}^{capa}
 
 .. math::
     v^{fuse}(t) =
-    \frac{v^{gen, el}(t) + v^{gen, th}(t) \
+    \frac{v^{gen, el}(t) + v^{gen, th}(t) \\\\
     \cdot \beta(t)}{\gamma^{cond}(t)}
     \qquad \forall t \in T
 
@@ -817,3 +792,4 @@ CHP backpressure turbines are modelled based on their time dependent electrical 
     \frac{v^{gen, el}(t)}{v_{gen, th}(t)} =
     \frac{\gamma^{el}(t)}{\gamma^{th}(t)}
     \qquad \forall t \in T
+
