@@ -283,7 +283,7 @@ charge/discharge processes
 storage level
 --------------------------
 .. math::
-	{v^{sto,vol}_{y,r,g,t}}  = v^{sto,vol}_{y,r,g,t-1} + v^{gen,load}_{y,r,g,t} - v^{gen,unload}_{y,r,g,t} \cdot (1 + \gamma^{total,gen,sto}_{y,r,g,t}) \quad \forall y \in Y, r\in R, g\in G, t\in T \\
+	{v^{sto,vol}_{y,r,g,t}}  = v^{sto,vol}_{y,r,g,t-1} + v^{gen,load}_{y,r,g,t} - v^{gen,unload}_{y,r,g,t} \cdot (1+\gamma^{total,gen,sto}_{y,r,g,t}) \quad \forall y \in Y, r\in R, g\in G, t\in T \\
 
 total losses
 --------------------------
@@ -391,7 +391,7 @@ urbs
 	
 
 GENESYS-2
-''''
+'''''''''
 	
 .. math::
 
@@ -446,5 +446,18 @@ This equation counts for all processes, no matter how many input or output fuels
 .. math::
 
     &\frac{{v^{gen}_{f,g,m,r,t,y}}}{\gamma^{out_gen}_{f,g,m,r,y}} = \sum_{f\in F} v^{fuse}_{f,g,m,r,t,y} \cdot \gamma^{in_gen}_{f,g,m,r,y} \quad \forall f \in F, g \in G, m \in M, r \in R, t \in T, y \in Y\\ 
+	
+	
+intertemporal
+*************
+
+How are costs handled in intertemporal models (investments and also other types of costs
+
+GENESYS-2
+'''''''''
+	
+.. math::
+	\pi^{intertemporal,year1,year2,yearX} = \pi^{anuity,capa,gen,year1} + \pi^{anuity,capa,gen,year2} + \pi^{anuity,capa,gen,yearX}
+   
 
 
