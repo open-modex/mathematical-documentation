@@ -283,7 +283,7 @@ charge/discharge processes
 storage level
 --------------------------
 .. math::
-	{v^{sto,vol}_{y,r,g,t}}  = v^{sto,vol}_{y,r,g,t-1} + v^{gen,load}_{y,r,g,t} \cdot \gamma^{total,gen,sto}_{y,r,g,t} - v^{gen,unload}_{y,r,g,t} \quad \forall y \in Y, r\in R, g\in G, t\in T \\
+	{v^{sto,vol}_{y,r,g,t}}  = v^{sto,vol}_{y,r,g,t-1} + v^{gen,load}_{y,r,g,t} - v^{gen,unload}_{y,r,g,t} \cdot (1 + \gamma^{total,gen,sto}_{y,r,g,t}) \quad \forall y \in Y, r\in R, g\in G, t\in T \\
 
 total losses
 --------------------------
