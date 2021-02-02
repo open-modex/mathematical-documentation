@@ -100,7 +100,7 @@ oemof
 ^^^^^^
 * Processes (Power Plants)
    * Investment costs per MW (incurred on new capacity)
-   * Annual fixed costs per MW (incurred on new capacity)
+   * Annual fixed costs per MW (incurred on total capacity)
    * Variable costs relative to output per MWh operation
    * Fuel costs relative to fuel consumption per MWh fuel input
    * Environmental costs in terms of fuel consumption per tons of emission
@@ -454,7 +454,7 @@ variable.
 The switching speed of a process can be limited:
 
 .. math::
-   \tau_{pt}-\tau_{p(t-1)}|\leq \Delta t\overline{PG}_p\kappa_{p},
+   |\tau_{pt}-\tau_{p(t-1)}|\leq \Delta t\overline{PG}_p\kappa_{p},
 
 where :math:`\overline{PG}_p` the normalized, maximal gradient of the
 operational state in full capacity per timestep.
