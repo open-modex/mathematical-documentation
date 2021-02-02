@@ -66,17 +66,16 @@ GENESYS-2
 ^^^^^^^^^
 * Processes (Power Plants)
    * Investment costs per MW (incurred on new capacity)
-   * Annual fixed costs per MW (incurred on total capacity) as percentage of investment cost 
+   * Annual fixed costs per MW as a percentage of annuitized investment costs  
    * Fuel costs per MWh fuel input
    * Environmental costs per tons of emission
 * Storages
    * Investment costs per MWh storage content
    * Investment costs per MW charging/discharging capacity (incurred on new capacity)
-   * Annual fixed costs per MWh 
-   * Annual fixed costs per MW (incurred on total storage content and charging/discharging capacity) 
+   * Annual fixed costs per MW as a percentage of annuitized investment costs 
 * Transmission lines
    * Investment costs per MW transmission capacity (incurred on new capacity)
-   * Annual fixed costs per MW as percentage of investment cost
+   * Annual fixed costs per MW as a percentage of annuitized investment costs
 * Other Costs 
    * Not included 
 
@@ -238,6 +237,8 @@ The user defines the number/amount of neighbouring nodes that can recieve surplu
 if electricity can be transferred to neighbouring nodes by considering the existing demand and checking if transfer is allowed and does if possible
 If all surplus electricity is distributed to neighbouring nodes, next node is selected and the process is repeated with this node. 
 
+Additional description: The next step is the first occurrence of grid balancing. Here a sub-algorithm is called, that tries to balance out remaining positive residual load with exceeding generation of interconnected regions. The aim is to dissipate positive and negative residual loads from different regions to reach an overall balance. For every region and time step, the grid algorithm tries to exchange power with a certain distance level of neighbours. In a random order the list of all regions is balanced per level (for Debug purposes also a deterministic mode is available). The depth of levels for which the balancing is executed can be selected as a usersetting and always starts with the next neighbours. In case the residual load of a neighbouring region is exactly zero, no direct balance is possible, but it is used for transit to next-neighbours. The balancing is limited by the available NTC of a link or the available excess generation. Once activated, the links have a direction of power flow for the time-step, which cannot be reversed within the same time-step. It is, however, possible to add further power flow in the same direction until the full power of the link is reached. The grid balancing module, therefore, cannot guarantee mathematical optimality but was invented as a fast approximation scheme, which emphasises short distance transport. Line losses can be accounted for by a length-dependent efficiency assumption and a length-independent loss factor. [1:1 Beschreibung Dissertation Christian Bussar]
+
 * Capacity restrictions exist.
 * DC flow is modelled as NTC the same way as HVAC. 
 
@@ -374,7 +375,7 @@ where :math:`\gamma_{y,r,g,t}^{\text{in/out,gen}}` represents inverter efficienc
 .. math::
  v_{y,r,g,t}^{\text{sto,vol}} = v_{y,r,g,t-1}^{\text{sto,vol}} + v_{y,r,g,t}^{\text{gen, load}} \cdot \gamma_{y,r,g,t}^{\text{total,gen,sto}} - v_{y,r,g,t}^{\text{gen, unload}} 
 
-where :math:`\gamma_{y,r,g,t}^{\text{total,gen,sto}}` represents the efficiency of storage itself. It is storage type specific and can be set to 1 to ignore it. 
+where :math:`\gamma_{y,r,g,t}^{\text{total,gen,sto}}` represents the efficiency of storage itself, assigned to the discharging process. It is storage-type-specific and can be set to 1 to ignore it. 
 
 4. Total losses
 
@@ -400,7 +401,7 @@ oemof
 * It is optional to set the initial storage level but by default, it is activated
 * Seperate capacity for charging/discharging
 
-5. Power plant efficiencies
+5. Power plant operation
 ****************************
 Here we have a comparison of the model constraints for power plant operation and expansion of each framework.
 
