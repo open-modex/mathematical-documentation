@@ -7,6 +7,16 @@
    representing a unique parameter or variable name. The definition of sets is
    also part of `../notation.rst`.
 
+.. sphinx.ext.graphviz
+
+.. Sources
+   https://graphviz.org/doc/info/attrs.html
+   https://stackoverflow.com/questions/14873205/horizontal-trees-in-graphviz
+   https://stackoverflow.com/questions/6450765/how-do-you-center-a-title-for-a-diagram-output-to-svg-using-dot
+
+.. `dot2tex` could perhaps be integrated in the graphviz extension to allow
+   for LaTEX labels.
+
 Modelling of technologies
 =========================
 Here the framework's representations of technologies are shown
@@ -14,15 +24,66 @@ Here the framework's representations of technologies are shown
 VRE-units
 *********
 
+.. graphviz::
+
+  digraph G {
+    rankdir="LR";
+    node [ shape=box ];
+
+    i -> box [ label="Curtailment" ];
+    box -> o [ label="Electricity\nproduction" ];
+
+    i [ style="invis" ];
+    o [ style="invis" ];
+    box [ label="Parameters:\nProfile\nFull load hours"];
+
+    label="Used in: Balmorel"
+  }
+
 .. figure:: images/balmorel_VRE.png
    :width: 70 %
 
    Used in: Balmorel
-   
+
+.. graphviz::
+
+  digraph G {
+    rankdir="LR";
+    node [ shape=box ];
+
+    i1 -> box ;
+    i2 -> box ;
+    box -> o1 ;
+    box -> o2 ;
+
+    i1 [ label="Capacity Factor" ];
+    i2 [ label="Electricity Demand" ];
+    o1 [ label="Electricity Output" ];
+    o2 [ label="Cost (FixOM, VarOM)" ];
+    box [ label="Parameters:\ncapacity\nefficiency\ncost\nlifetime\nOaM-rate\nbidirectional"];
+
+    label="Used in: GENESYS_2"
+  }
+
 .. figure:: images/vre_unit_genesys2.png
    :width: 70 %
 
    Used in: GENESYS_2
+
+.. graphviz::
+
+  digraph G {
+    rankdir="LR";
+    node [ shape=box ];
+
+    box -> o [ label="Electricity production" ];
+
+    o [ style="invis" ];
+    box [ label="bus\ncapacity\nprofile\nmarginal_cost\ncapacity_cost\nexpandable\noutput_parameters\ncapacity_potential" ];
+
+    label="Used in: oemof.tabular"
+  }
+
 
 Balmorel
 ''''''''
