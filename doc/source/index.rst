@@ -14,14 +14,10 @@ For a basic introduction into the syntax of rst, check out the `sphinx help <htt
    :maxdepth: 2
    :caption: Contents:
 
-   notation
-   frameworks/balmorel
-   frameworks/genesys2
-   frameworks/genesysmod
-   frameworks/oemof
-   frameworks/urbs
-   frameworks/technologies
-   frameworks/obj_function_comparison
-   frameworks/scenario
+   frameworks/scenario   
+   frameworks/obj_function_comparison   
+   frameworks/archive/archive 
+
+
 
 * :ref:`search`

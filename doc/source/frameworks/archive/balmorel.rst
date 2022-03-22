@@ -1,9 +1,13 @@
+Archive
+=======
+
+
 Balmorel
-========
+********
 On this page, the most important equations like the objective function and constraints are stated.
 
 Objective function
-******************
+''''''''''''''''''
 
 I have added input and output to the OM costs as we have it divided.
 
@@ -82,17 +86,17 @@ Marked in red: things that are not in the terminology. All of these are explaine
      - Accumulated new investments at end of (ULTimo) previous (i.e., start of current) year (MW) 
 	
 Not relevant for Open_MODEX scenario runs
-***************************************** 
+''''''''''''''''''''''''''''''''''''''''' 
 so far (should be inside the summation of the y) - should we include them? Not in OpenMODEX terminology yet.	
 
 Heat
-''''
+""""
 
 .. math::
 	+  \sum_{a\in A, g\in G^{heat} } ( \pi^{omv,gen,out}_{a,g} \cdot  \sum_{t\in T} ( {\color{blue}\gamma^{CV}_g} \cdot v^{gen,heat}_{y,a,g,t} )  )  
 
 Hydro price profiles
-''''''''''''''''''''
+""""""""""""""""""""
 
 .. math::
 
@@ -100,10 +104,10 @@ Hydro price profiles
 	
 
 Constraints
-***********
+'''''''''''
 
 QEEQ: Electricity generation equals demand (MW)
-'''''''''''''''''''''''''''''''''''''''''''''''
+"""""""""""""""""""""""""""""""""""""""""""""""
 
 .. math::
 
@@ -159,18 +163,18 @@ Marked in red: things that are not in the terminology. All of these are explaine
 
 	
 Not relevant for Open_MODEX scenario runs
-***************************************** 
+'''''''''''''''''''''''''''''''''''''''''
 so far (should be inside the summation of the y) - should we include them? Not in OpenMODEX terminology yet.	
 
 Heat (left side of equation)
-''''''''''''''''''''''''''''
+""""""""""""""""""""""""""""
 
 .. math::
 	- \sum_{a\in A(r)} {\sum_{g\in G^{heat}} v^{gen}_{y,a,g,t}} 
 
 
 QGFEQ: Calculate fuel consumption, existing units (MW)
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. math::
 
@@ -226,4 +230,4 @@ Marked in red: things that are not in the terminology. All of these are explaine
 	 
 	 	
 QESTOVOLTS: Inter-seasonal electricty storage dynamic equation (MWh)
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
